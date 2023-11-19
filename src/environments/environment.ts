@@ -6,7 +6,7 @@ export const environment = {
       authorizationParams: {
           redirect_uri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
           audience: 'https://hello-world.example.com',
-          // scope: '# Professional',
+          scope: 'Professional',
       },
   
       
@@ -17,7 +17,7 @@ export const environment = {
                   // tokenOptions: {
                       // authorizationParams: {
                           // audience: 'https://hello-world.example.com/api/v2/',
-                          // scope: '# Professional',
+                          // scope: 'Professional',
                       // },
                   // },
               },
@@ -26,6 +26,7 @@ export const environment = {
     },
     granp: {
       apiServerUrl: 'http://192.168.1.110:6060 # http://localhost:6060 # Or http://10.0.2.2:6060 if you are running the Ionic Angular app on Android',
+      logoutRedirectUri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
     },
   };
   

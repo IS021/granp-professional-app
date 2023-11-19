@@ -37,6 +37,7 @@ const envConfigFile = `export const environment = {
     },
     granp: {
       apiServerUrl: '${process.env['API_SERVER_URL']}',
+      logoutRedirectUri: '${process.env['AUTH0_CALLBACK_URL']}',
     },
   };
   `;
