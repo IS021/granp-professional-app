@@ -10,7 +10,7 @@ export interface Professional {
   Description?: string;
   Profession: Profession;
   Address: Address;
-  BirthDate: Date;
+  BirthDate: string;
   /* IdentityCard: File; //TODO: as picture, in BackEnd */
   /* certificate: File; //TODO: in BackEnd */
   /* ProfileImage: File; //TODO: as picture, in BackEnd */
@@ -20,5 +20,5 @@ export interface Professional {
   MaxDistance: number;
   LongTimeJob: boolean;
   ShortTimeJoob: boolean;
-  DomicileService: boolean; //TODO in BackEnd
+  Availability: Availability[]; //TODO: in BackEnd, should be an array or something of similar?
 }
