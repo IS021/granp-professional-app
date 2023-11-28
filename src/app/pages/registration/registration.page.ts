@@ -63,7 +63,7 @@ import { logoNoSmoking } from 'ionicons/icons';
     IonToggle,
     IonButton,
     IonFabButton
-  ],
+],
 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -96,7 +96,7 @@ export class RegistrationPage implements OnInit {
   imageSelected = false;
     
 
-  setCustomerBirthdate(event: CustomEvent) {
+  setProfessionalBirthdate(event: CustomEvent) {
     this.professional.BirthDate = format(
       parseISO(event.detail.value),
       'dd/MM/yyyy'

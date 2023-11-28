@@ -1,7 +1,7 @@
 enum Profession {
   Doctor = 'Doctro',
   Nurse = 'Nuese',
-  Physiotherapist = 'hysiotherapist',
+  Physiotherapist = 'Hysiotherapist',
   Caregiver = 'Caregiver',
   Other = 'Other'
   }
