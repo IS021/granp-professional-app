@@ -1,3 +1,6 @@
+import { Address } from "./Address";
+import { Availability } from "./Availability";
+
 export interface Professional {
   //User Info
   FisrtName: string;

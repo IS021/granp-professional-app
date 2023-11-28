@@ -1,4 +1,4 @@
-class Availability {
+export class Availability {
     // Properties
     StartHour: string;
     EndHour: string;
