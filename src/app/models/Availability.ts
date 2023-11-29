@@ -1,3 +1,6 @@
+import { Place } from "./Place";
+
+
 export class Availability {
     // Properties
     StartHour: string;

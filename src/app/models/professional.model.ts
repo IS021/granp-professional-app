@@ -1,5 +1,6 @@
 import { Address } from "./Address";
 import { Availability } from "./Availability";
+import { Profession } from "./Profession";
 
 export interface Professional {
   //User Info
@@ -16,7 +17,7 @@ export interface Professional {
   BirthDate: string;
   /* IdentityCard: File; //TODO: as picture, in BackEnd */
   /* certificate: File; //TODO: in BackEnd */
-  /* ProfileImage: File; //TODO: as picture, in BackEnd */
+  ProfilePicture: string; //TODO: as picture, in BackEnd
 
   //Job Info
   HourleyRate: number;

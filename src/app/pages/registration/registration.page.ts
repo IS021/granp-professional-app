@@ -68,6 +68,9 @@ import { logoNoSmoking } from 'ionicons/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPage implements OnInit {
+takePicture() {
+throw new Error('Method not implemented.');
+}
  
   professional: Professional = {
     FisrtName: '',
@@ -81,7 +84,7 @@ export class RegistrationPage implements OnInit {
     BirthDate: '',
     /* IdentifyCard */
     /* Certificate */
-    /* ProfileImage */
+    ProfilePicture: '',
 
     HourleyRate: 0,
     MaxDistance: 0,

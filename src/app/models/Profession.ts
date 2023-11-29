@@ -1,4 +1,4 @@
-enum Profession {
+export enum Profession {
   Doctor = 'Doctro',
   Nurse = 'Nuese',
   Physiotherapist = 'Hysiotherapist',

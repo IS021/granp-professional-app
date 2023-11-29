@@ -1,9 +1,8 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="false">
   <ion-toolbar>
-    <ion-title>registration</ion-title>
+    <ion-title>Registrazione</ion-title>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content [fullscreen]="'true'">
 
@@ -27,9 +26,52 @@
     <ng-template #showImage>
       <div class="imageContainer">
         <ion-button fill="none" (click)="takePicture()">
-          <img [style.border-radius]="'100%'" [style.max-width]="'50%'" src="{{ customer.profilePicture }}">
+          <img [style.border-radius]="'100%'" [style.max-width]="'50%'" src="{{ professional.ProfilePicture }}">
         </ion-button>
       </div>
     </ng-template>
+
+
+
+
+    <ion-item>
+      <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.FisrtName"
+        required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Cognome" label-placement="floating" type="text" [(ngModel)]="professional.LastName"
+        required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Email" label-placement="floating" [(ngModel)]="professional.Email"
+        required email></ion-input>
+    </ion-item>
+
+    <ion-item id="open-modal">
+      <ion-input label="Data di nascita" label-placement="floating" type="text" [(ngModel)]="professional.BirthDate"
+        required></ion-input>
+    </ion-item>
+
+    <ion-modal trigger="open-modal">
+      <ng-template>
+        <ion-datetime locale="it-IT" [presentation]="'date'" (ionChange)="setProfessionalBirthdate($event)"
+          showDefaultButtons="true" (ionCancel)="showPicker=false;"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-item id="open-modal">
+      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
+        placeholder="+39 xxx xxx xx xx" label-placement="floating" [(ngModel)]="professional.PhoneNumber"
+        required></ion-input>
+    </ion-item>
+    <ng-template #isElder>
+      <div class="buttonContainer">
+        <ion-button expand="block" size="large">Completa</ion-button>
+      </div>
+    </ng-template>
+
+  </ion-list>
 
 </ion-content>
