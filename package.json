@@ -36,6 +36,7 @@
     "@capacitor/status-bar": "5.0.6",
     "@date-io/date-fns": "^2.17.0",
     "@ionic/angular": "^7.5.0",
+    "@ionic/pwa-elements": "^3.2.2",
     "@maskito/angular": "^1.9.0",
     "@maskito/core": "^1.9.0",
     "@microsoft/signalr": "^8.0.0",

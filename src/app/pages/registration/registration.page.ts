@@ -6,6 +6,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Address } from '../../models/Address';
 import { Availability } from '../../models/Availability';
 import { GeoLocation } from '../../models/Location';
+import { Profession } from 'src/app/models/Profession';
+import { Place } from 'src/app/models/Place';
 
 import {
   IonHeader,
@@ -37,7 +39,7 @@ import {
   CameraSource,
   Photo,
 } from '@capacitor/camera';
-import { logoNoSmoking } from 'ionicons/icons';
+import { CameraService } from 'src/app/services/camera.service';
 
 
 
@@ -68,10 +70,7 @@ import { logoNoSmoking } from 'ionicons/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPage implements OnInit {
-takePicture() {
-throw new Error('Method not implemented.');
-}
- 
+
   professional: Professional = {
     FisrtName: '',
     LastName: '',
@@ -99,7 +98,7 @@ throw new Error('Method not implemented.');
   imageSelected = false;
     
 
-  setProfessionalBirthdate(event: CustomEvent) {
+  setProfessionalBirthdate(event: any) {
     this.professional.BirthDate = format(
       parseISO(event.detail.value),
       'dd/MM/yyyy'
@@ -134,20 +133,15 @@ throw new Error('Method not implemented.');
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
     (el as HTMLIonInputElement).getInputElement();
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cameraService: CameraService, private cdr: ChangeDetectorRef ) {}
 
-  /* public async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Prompt,
+  takePicture() {
+    this.cameraService.takePicture().then(profilePicture => {
+      this.professional.ProfilePicture = profilePicture;
+      this.imageSelected = true;
+      this.cdr.detectChanges();
     });
-    this.professional.profilePicture= 'data:image/jpeg;base64,' + image.base64String;
-    this.imageSelected = true;
-    this.cdr.detectChanges();
-
-  } */
+  }
 
   ngOnInit() {}
 }
