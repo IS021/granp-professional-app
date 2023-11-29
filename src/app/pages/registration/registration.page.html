@@ -1,27 +1,14 @@
-<ion-header [translucent]="false">
-  <ion-toolbar>
-    <ion-title>Registrazione</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="'true'">
+    
+    <h1>
+    Completa la tua registrazione
+    </h1>
 
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        <div class="ion-text-wrap">
-          <h1>
-            Completa la tua registrazione
-          </h1>
-        </div>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-list [inset]="true">
 
     <div *ngIf="!imageSelected; else showImage;" class="imageContainer">
-      <ion-button size="medium" (click)="takePicture()" [(ngModel)]="imageSelected">Inserisci una tua foto</ion-button>
+      <ion-button size="medium" (click)="takePicture()">Inserisci una tua foto</ion-button>
     </div>
     <ng-template #showImage>
       <div class="imageContainer">
@@ -30,9 +17,6 @@
         </ion-button>
       </div>
     </ng-template>
-
-
-
 
     <ion-item>
       <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.FisrtName"
@@ -67,11 +51,10 @@
         required></ion-input>
     </ion-item>
 
-    <h2>
-      <div class="buttonContainer">
+    <div class="buttonContainer">
         <ion-button expand="block" size="large">Completa</ion-button>
-      </div>
-    </h2>
+    </div>
+
 
   </ion-list>
 

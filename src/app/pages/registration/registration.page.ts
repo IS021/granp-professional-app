@@ -21,7 +21,8 @@ import {
   IonDatetime,
   IonToggle,
   IonButton,
-  IonFabButton
+  IonFabButton,
+  IonTextarea
 } from '@ionic/angular/standalone';
 
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
@@ -60,6 +61,7 @@ import { CameraService } from 'src/app/services/camera.service';
     IonList,
     IonItem,
     IonInput,
+    IonTextarea,
     IonModal,
     IonDatetime,
     IonToggle,
