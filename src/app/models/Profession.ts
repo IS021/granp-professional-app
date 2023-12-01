@@ -1,7 +1,7 @@
 export enum Profession {
-  Doctor = 'Doctro',
-  Nurse = 'Nuese',
-  Physiotherapist = 'Hysiotherapist',
-  Caregiver = 'Caregiver',
-  Other = 'Other'
+  Doctor = 'Dottore',
+  Nurse = 'Infermiere',
+  Physiotherapist = 'Fisioterapista',
+  Caregiver = 'Badante',
+  Other = 'Altro'
   }

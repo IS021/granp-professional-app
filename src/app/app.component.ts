@@ -10,6 +10,7 @@ import { Capacitor } from '@capacitor/core';
 import { asyncScheduler, BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 
+
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html',

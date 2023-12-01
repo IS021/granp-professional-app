@@ -19,7 +19,7 @@
     </ng-template>
 
     <ion-item>
-      <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.FisrtName"
+      <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.FirstName"
         required></ion-input>
     </ion-item>
 
@@ -29,10 +29,53 @@
     </ion-item>
 
     <ion-item>
+      <ion-input  label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
+        placeholder="+39 xxx xxx xxxx" label-placement="floating" [(ngModel)]="professional.PhoneNumber"
+        required></ion-input>
+    </ion-item>
+
+    <ion-item id="open-address-settings" [button]="true"> 
+      <ion-input label="Indirizzo" label-placement="floating" type="text" [(ngModel)]="addressString"
+        required></ion-input>
+    </ion-item>
+
+    <ion-modal #modal trigger="open-address-settings">
+      <ng-template>
+        <ion-toolbar>
+          <ion-buttons slot="end">
+            <ion-button (click)="modal.dismiss()">Chiudi</ion-button>
+          </ion-buttons>
+          <ion-title [style.align-items]="'center'">Indirizzo</ion-title>
+          <ion-buttons slot="start">
+            <ion-button color="primary" fill="clear" (click)="submitProfessionalAddress()">Salva</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-item>
+            <ion-input label="Via/Viale" label-placement="floating" type="text" [(ngModel)]="professional.Address.Street"
+              required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Numero civico" label-placement="floating" type="text"
+              [(ngModel)]="professional.Address.StreetNumber" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Città" label-placement="floating" type="text" [(ngModel)]="professional.Address.City"
+              required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="CAP" label-placement="floating" [(ngModel)]="professional.Address.ZipCode"
+              required></ion-input>
+          </ion-item>
+        </ion-list>
+      </ng-template>
+    </ion-modal>
+
+    <!-- <ion-item>
       <ion-input label="Email" label-placement="floating" [(ngModel)]="professional.Email"
         required email></ion-input>
     </ion-item>
-
+ -->
     <ion-item id="open-modal">
       <ion-input label="Data di nascita" label-placement="floating" type="text" [(ngModel)]="professional.BirthDate"
         required></ion-input>
@@ -45,11 +88,37 @@
       </ng-template>
     </ion-modal>
 
-    <ion-item id="open-modal">
-      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
-        placeholder="+39 xxx xxx xx xx" label-placement="floating" [(ngModel)]="professional.PhoneNumber"
+    <ion-item>
+      <ion-textarea label="Descrizione" label-placement="floating"
+      type="text" [rows]="1" [autoGrow]="true" [(ngModel)]="professional.Description" maxlength="200"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.Profession"
+        required>
+        <ion-select-option value="Dottore" >Dottore</ion-select-option>
+        <ion-select-option value="Infermiere" >Infermiere</ion-select-option>
+        <ion-select-option value="Fisioterapista" >Fisioterapista</ion-select-option>
+        <ion-select-option value="Badante" >Badante</ion-select-option>
+        <ion-select-option value="Altro" >Altro</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Carta d'identità" label-placement="floating" [maskito]="cardMask" [maskitoElement]="maskPredicate"
+       label-placement="floating" [(ngModel)]="professional.IdCardNumber"
         required></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-button type="file" (click)="pickImages()" expand="block">Carica il tuo certificato</ion-button>
+      <br>
+      <img src="{{professional.Certificate}}" >
+    </ion-item>
+    
+    
+
+
 
     <div class="buttonContainer">
         <ion-button expand="block" size="large">Completa</ion-button>

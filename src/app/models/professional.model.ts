@@ -3,10 +3,13 @@ import { Availability } from "./Availability";
 import { Profession } from "./Profession";
 
 export interface Professional {
+
+  ProfilePicture: string; //TODO: as picture, in BackEnd
+
   //User Info
-  FisrtName: string;
+  FirstName: string;
   LastName: string;
-  Email: string;
+  /* Email: string; */
   PhoneNumber: string;
 
   //Profile Info
@@ -15,9 +18,8 @@ export interface Professional {
   Profession: Profession;
   Address: Address;
   BirthDate: string;
-  /* IdentityCard: File; //TODO: as picture, in BackEnd */
-  /* certificate: File; //TODO: in BackEnd */
-  ProfilePicture: string; //TODO: as picture, in BackEnd
+  IdCardNumber: string;
+  Certificate: string; //TODO: in BackEnd */
 
   //Job Info
   HourleyRate: number;
