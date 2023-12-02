@@ -13,7 +13,7 @@
     <ng-template #showImage>
       <div class="imageContainer">
         <ion-button fill="none" (click)="takePicture()">
-          <img [style.border-radius]="'100%'" [style.max-width]="'50%'" src="{{ professional.ProfilePicture }}">
+          <img [style.border-radius]="'100%'" [style.max-width]="'50%'" [src]="professional.ProfilePicture">
         </ion-button>
       </div>
     </ng-template>

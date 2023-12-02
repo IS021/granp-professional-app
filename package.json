@@ -44,7 +44,6 @@
     "@maskito/core": "^1.9.0",
     "@microsoft/signalr": "^8.0.0",
     "@supabase/supabase-js": "^2.39.0",
-    "cordova-plugin-inappbrowser": "^6.0.0",
     "date-fns": "^2.30.0",
     "ionicons": "^7.2.1",
     "rxjs": "~7.8.0",
