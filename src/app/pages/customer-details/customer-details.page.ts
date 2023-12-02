@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Customer } from 'src/app/models/customerPublicResponse.model';
+import { Platform } from '@ionic/angular';
 import {
   IonItem,
   IonLabel,
@@ -66,11 +67,29 @@ export class CustomerDetailsPage implements OnInit {
     isElder: false,
   };
 
-  constructor() {
+  constructor(private platform: Platform) {
     addIcons({call, home, personCircleOutline, calendarOutline});
   }
 
   ngOnInit() {
+  }
+
+  callNumber() {
+    if (this.customerLogged.phoneNumber) {
+      const phoneNumber = '+39' + this.customerLogged.phoneNumber;
+      this.platform.ready().then(() => {
+        window.location.href = 'tel:' + phoneNumber;
+      });
+    } else {
+      console.error('Il numero di telefono non è definito.');
+    }
+  }
+
+  callElderNumber() {
+    const phoneNumber = '+39' + this.customerLogged.elderTelephoneNumber;
+    this.platform.ready().then(() => {
+      window.location.href = 'tel:' + phoneNumber;
+    });
   }
 
 }
