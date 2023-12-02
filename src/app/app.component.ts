@@ -33,7 +33,9 @@ export class AppComponent {
         // If not logged in redirect to login page
         this.loggedIn$.subscribe((loggedIn) => {
             if (!loggedIn) {
-                /* this.router.navigate(['/login']); */
+                this.router.navigate(['/login']);
+            } else {
+                this.router.navigate(['/tabs']);
             }
         });
 
@@ -68,7 +70,7 @@ export class AppComponent {
                                 // wait for next tick
                                 asyncScheduler.schedule(() => {
                                     // redirect to profile when logging in              // TODO
-                                    this.router.navigate(['/']);
+                                    this.router.navigate(['/tabs']);
                                     this.isAuth0Loading$.next(false);
                                 })
                             });
@@ -81,7 +83,7 @@ export class AppComponent {
                             })
                         }
                         // redirect to home when logging out
-                        this.router.navigate(['/']);
+                        this.router.navigate(['/login']);
                         this.isAuth0Loading$.next(false);
                     }
                 } else {

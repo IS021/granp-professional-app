@@ -2,22 +2,22 @@ export const environment = {
     production: false,
     auth0: {
       domain: 'antopio.eu.auth0.com',
-      clientId: 'n9JNqSVKKWeaHp0bmBerwmfNWfKhSSaZ',
+      clientId: 'YSutfiDDP0oo1oQp33FkhOxtHGCnFZyL',
       authorizationParams: {
-          redirect_uri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
-          audience: 'https://hello-world.example.com',
-          scope: 'Professional',
+          redirect_uri: 'http://localhost:4200',
+          audience: 'https://granp.api.com',
+          scope: 'openid profile email',
       },
   
       
       httpInterceptor: {
           allowedList: [
               {
-                  uri: 'http://192.168.1.110:6060 # http://localhost:6060 # Or http://10.0.2.2:6060 if you are running the Ionic Angular app on Android/api/messages/*',
+                  uri: 'http://localhost:5255/*',
                   // tokenOptions: {
                       // authorizationParams: {
-                          // audience: 'https://hello-world.example.com/api/v2/',
-                          // scope: 'Professional',
+                          // audience: 'https://granp.api.com/api/v2/',
+                          // scope: 'openid profile email',
                       // },
                   // },
               },
@@ -25,8 +25,8 @@ export const environment = {
       },
     },
     granp: {
-      apiServerUrl: 'http://192.168.1.110:6060 # http://localhost:6060 # Or http://10.0.2.2:6060 if you are running the Ionic Angular app on Android',
-      logoutRedirectUri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
+      apiServerUrl: 'http://localhost:5255',
+      logoutRedirectUri: 'http://localhost:4200',
     },
   };
   
