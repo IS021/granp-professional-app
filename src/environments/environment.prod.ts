@@ -14,12 +14,6 @@ export const environment = {
           allowedList: [
               {
                   uri: 'http://localhost:5255/*',
-                  // tokenOptions: {
-                      // authorizationParams: {
-                          // audience: 'https://granp.api.com/api/v2/',
-                          // scope: 'openid profile email',
-                      // },
-                  // },
               },
           ],
       },
@@ -27,6 +21,7 @@ export const environment = {
     granp: {
       apiServerUrl: 'http://localhost:5255',
       logoutRedirectUri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
+      role: 'professional',
     },
   };
   
