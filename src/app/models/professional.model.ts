@@ -4,27 +4,27 @@ import { Profession } from "./Profession";
 
 export interface Professional {
 
-  ProfilePicture: string; //TODO: as picture, in BackEnd
+  profilePicture: string; //TODO: as picture, in BackEnd
 
   //User Info
-  FirstName: string;
-  LastName: string;
+  firstName: string;
+  lastName: string;
   /* Email: string; */
-  PhoneNumber: string;
+  phoneNumber: string;
 
   //Profile Info
 
-  Description?: string;
-  Profession: Profession;
-  Address: Address;
-  BirthDate: string;
-  IdCardNumber: string;
-  Certificate: string; //TODO: in BackEnd */
+  description?: string;
+  profession: Profession;
+  address: Address;
+  birthDate: string;
+  idCardNumber: string;
+  certificate: string; //TODO: in BackEnd */
 
   //Job Info
-  HourleyRate: number;
-  MaxDistance: number;
-  LongTimeJob: boolean;
-  ShortTimeJoob: boolean;
-  Availability: Availability[]; //TODO: in BackEnd, should be an array or something of similar?
+  hourlyRate: number| null;
+  maxDistance: number | null;
+  longTimeJob: boolean;
+  shortTimeJoob: boolean;
+  availability: Availability[]; //TODO: in BackEnd, should be an array or something of similar?
 }
