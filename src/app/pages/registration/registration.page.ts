@@ -61,7 +61,7 @@ import { CameraService } from 'src/app/services/camera.service';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 
 import { addIcons } from 'ionicons';
-import { add, checkmarkDoneCircle } from 'ionicons/icons';
+import { trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-registration',
@@ -180,7 +180,7 @@ export class RegistrationPage implements OnInit {
     private cdr: ChangeDetectorRef,
     private modalController: ModalController    
   ) {
-    addIcons({ add, checkmarkDoneCircle });
+    addIcons({ trashOutline });
   }
 
   /* Camera service for profile picture */
@@ -243,6 +243,8 @@ export class RegistrationPage implements OnInit {
       this.newAvailability.EndHour = format(parseISO(event.detail.value), 'HH:mm');
   }
 
+
+  /* Availability management */
   addNewAvailability() {
     const availability = this.newAvailability;
     this.professional.availability.push(availability);
@@ -258,6 +260,12 @@ export class RegistrationPage implements OnInit {
       false,
       Place.Both
     );
+  }
+
+  removeAvailability(availability: Availability) {
+    const index = this.professional.availability.indexOf(availability);
+    this.professional.availability.splice(index, 1);
+    console.log(this.professional.availability);
   }
 
   ngOnInit() {}

@@ -15,10 +15,10 @@
 
     <div *ngIf="!imageSelected; else showImage;" class="imageContainer">
       <ion-avatar class="bigger-avatar" (click)="takePicture()">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
       </ion-avatar>
-      
-     <!--  <ion-button size="medium" (click)="takePicture()">Inserisci una tua foto</ion-button> -->
+
+      <!--  <ion-button size="medium" (click)="takePicture()">Inserisci una tua foto</ion-button> -->
     </div>
     <ng-template #showImage>
       <div class="imageContainer">
@@ -39,7 +39,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="+39 xxx xxx xxxx"
+      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="+39 xxx xxx xxxx" type="number"
         label-placement="floating" [(ngModel)]="professional.phoneNumber" required></ion-input>
     </ion-item>
 
@@ -118,7 +118,8 @@
     </ion-item>
 
     <ion-item>
-      <ion-input label="Raggio d'azione" label-placement="floating" type="number" placeholder="Es. 2 Km" [(ngModel)]="professional.maxDistance"></ion-input>
+      <ion-input label="Raggio d'azione" label-placement="floating" type="number" placeholder="Es. 2 Km"
+        [(ngModel)]="professional.maxDistance"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -147,20 +148,22 @@
 
       <ion-item>
         <ion-label>Ora di inizio</ion-label>
-        <ion-datetime-button datetime="startHour"></ion-datetime-button>
+        <ion-datetime-button datetime="startHour" locale="it-IT"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="startHour" presentation="time" [showDefaultButtons]="true"  (ionChange)="setStartHour($event)"></ion-datetime>
+            <ion-datetime id="startHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+              (ionChange)="setStartHour($event)"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
 
       <ion-item>
         <ion-label>Ora di fine</ion-label>
-        <ion-datetime-button datetime="endHour">Data di fine</ion-datetime-button>
+        <ion-datetime-button datetime="endHour" locale="it-IT">Data di fine</ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="endHour" presentation="time" [showDefaultButtons]="true" (ionChange)="setEndHour($event)"></ion-datetime>
+            <ion-datetime id="endHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+              (ionChange)="setEndHour($event)"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
@@ -208,16 +211,17 @@
           </ion-card-header>
           <ion-card-content>
             <b>Disponibile nei seguenti giorni:</b><br>
-              <ion-text *ngIf="availability.Monday">Lunedì </ion-text>
-              <ion-text *ngIf="availability.Tuesday">Martedì </ion-text>
-              <ion-text *ngIf="availability.Wednesday">Mercoledì </ion-text>
-              <ion-text *ngIf="availability.Thursday">Giovedì </ion-text>
-              <ion-text *ngIf="availability.Friday">Venerdì </ion-text>
-              <ion-text *ngIf="availability.Saturday">Sabato </ion-text>
-              <ion-text *ngIf="availability.Sunday">Domenica </ion-text>
+            <ion-text *ngIf="availability.Monday">Lunedì </ion-text>
+            <ion-text *ngIf="availability.Tuesday">Martedì </ion-text>
+            <ion-text *ngIf="availability.Wednesday">Mercoledì </ion-text>
+            <ion-text *ngIf="availability.Thursday">Giovedì </ion-text>
+            <ion-text *ngIf="availability.Friday">Venerdì </ion-text>
+            <ion-text *ngIf="availability.Saturday">Sabato </ion-text>
+            <ion-text *ngIf="availability.Sunday">Domenica </ion-text>
             <br>
             <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
-            <b>Presso:</b> {{availability.Place}}
+            <b>Presso:</b> {{availability.Place}} <br>
+            <ion-icon name="trash-outline" slot="end" size="large" (click)="removeAvailability(availability)"></ion-icon>
           </ion-card-content>
         </ion-card>
       </ion-item>
