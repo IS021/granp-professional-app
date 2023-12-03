@@ -27,7 +27,18 @@ import {
   ModalController,
   IonSelect,
   IonSelectOption,
-  IonLabel
+  IonLabel,
+  IonIcon,
+  IonCard,
+  IonDatetimeButton,
+  IonRow,
+  IonCheckbox,
+  IonCardHeader,
+  IonCardTitle,
+  IonText,
+  IonCol,
+  IonCardContent,
+  IonAvatar
 } from '@ionic/angular/standalone';
 
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
@@ -45,10 +56,12 @@ import {
   CameraSource,
   Photo,
 } from '@capacitor/camera';
-import { CameraService } from 'src/app/services/camera.service' ;
+import { CameraService } from 'src/app/services/camera.service';
 
-import { FilePicker } from '@capawesome/capacitor-file-picker'
-import { FileOpener } from '@capacitor-community/file-opener';
+import { FilePicker } from '@capawesome/capacitor-file-picker';
+
+import { addIcons } from 'ionicons';
+import { add, checkmarkDoneCircle } from 'ionicons/icons';
 
 @Component({
   selector: 'app-registration',
@@ -75,32 +88,49 @@ import { FileOpener } from '@capacitor-community/file-opener';
     IonButtons,
     IonSelect,
     IonSelectOption,
-    IonLabel
+    IonLabel,
+    IonIcon,
+    IonCard,
+    IonDatetimeButton,
+    IonRow,
+    IonCheckbox,
+    IonCardHeader,
+    IonCardTitle,
+    IonText,
+    IonCol,
+    IonCardContent,
+    IonAvatar,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPage implements OnInit {
   professional: Professional = {
-    FirstName: '',
-    LastName: '',
+    firstName: '',
+    lastName: '',
     /*  Email: '', */
-    PhoneNumber: '',
+    phoneNumber: '',
 
-    Description: '',
-    Profession: Profession.Other,
-    Address: new Address('', '', '', '', new GeoLocation(0, 0)),
-    BirthDate: '',
-    IdCardNumber: '',
-    Certificate: '',
-    ProfilePicture: '',
+    description: '',
+    profession: Profession.Other,
+    address: new Address('', '', '', '', new GeoLocation(0, 0)),
+    birthDate: '',
+    idCardNumber: '',
+    certificate: '',
+    profilePicture: '',
 
-    HourleyRate: 0,
-    MaxDistance: 0,
-    LongTimeJob: false,
-    ShortTimeJoob: false,
-    Availability: [
-      new Availability(
-        '',
+    hourlyRate: null,
+    maxDistance: null,
+    longTimeJob: false,
+    shortTimeJoob: false,
+    availability: [],
+  };
+
+  showPicker = false;
+  imageSelected = false;
+  addressString: string = '';
+
+  newAvailability: Availability = new Availability(
+    '',
         '',
         false,
         false,
@@ -110,16 +140,10 @@ export class RegistrationPage implements OnInit {
         false,
         false,
         Place.Both
-      ),
-    ],
-  };
-
-  showPicker = false;
-  imageSelected = false;
-  addressString: string = '';
+  );
 
   setProfessionalBirthdate(event: any) {
-    this.professional.BirthDate = format(
+    this.professional.birthDate = format(
       parseISO(event.detail.value),
       'dd/MM/yyyy'
     );
@@ -148,26 +172,29 @@ export class RegistrationPage implements OnInit {
     ],
   };
 
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => 
     (el as HTMLIonInputElement).getInputElement();
-
+  
   constructor(
     private cameraService: CameraService,
     private cdr: ChangeDetectorRef,
-    private modalController: ModalController
-  ) {}
+    private modalController: ModalController    
+  ) {
+    addIcons({ add, checkmarkDoneCircle });
+  }
 
+  /* Camera service for profile picture */
   takePicture() {
     this.cameraService.takePicture().then((profilePicture) => {
-      this.professional.ProfilePicture = profilePicture;
+      this.professional.profilePicture = profilePicture;
       this.imageSelected = true;
       this.cdr.detectChanges();
     });
   }
 
   submitProfessionalAddress() {
-    this.addressString = `${this.professional.Address.Street}, ${this.professional.Address.StreetNumber}, ${this.professional.Address.City}, ${this.professional.Address.ZipCode}`;
-    this.professional.Address.setFullAddress(this.addressString);
+    this.addressString = `${this.professional.address.Street}, ${this.professional.address.StreetNumber}, ${this.professional.address.City}, ${this.professional.address.ZipCode}`;
+    this.professional.address.setFullAddress(this.addressString);
 
     // Dismiss the modal and pass addressString
     this.modalController.dismiss({
@@ -183,15 +210,55 @@ export class RegistrationPage implements OnInit {
     ],
   };
 
-   pickImages = async () => {
-    const result = await FilePicker.pickImages({
+  /* maxDistance masking */
+  readonly distanceMask: MaskitoOptions = {
+    mask: [/^[0-9]*$/, 'Km']
+  };
 
-      readData: true
+  /* hourlyRate masking */
+  readonly rateMask: MaskitoOptions = {
+    mask: [ /^[0-9]*$/, '€/h'],
+  };
+
+  /* Certificate picker */
+  pickImages = async () => {
+    const result = await FilePicker.pickImages({
+      readData: true,
     });
-    this.professional.Certificate = 'data:image/jpg;base64,' + result.files[0].data;
+    this.professional.certificate =
+      'data:image/jpg;base64,' + result.files[0].data;
     this.cdr.detectChanges();
   };
+
+  /* Defining availabilities info */
+  setStartHour(event: any) {
+      this.newAvailability.StartHour = format(
+        parseISO(event.detail.value),
+        'HH:mm'
+      );
+    }
   
+
+  setEndHour(event: any) {
+      this.newAvailability.EndHour = format(parseISO(event.detail.value), 'HH:mm');
+  }
+
+  addNewAvailability() {
+    const availability = this.newAvailability;
+    this.professional.availability.push(availability);
+    this.newAvailability = new Availability(
+      '',
+      '',
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      Place.Both
+    );
+  }
 
   ngOnInit() {}
 }

@@ -1,40 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registrazione</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="'true'">
-    
-    <h1>
+
+  <h1>
     Completa la tua registrazione
-    </h1>
+  </h1>
 
 
   <ion-list [inset]="true">
 
     <div *ngIf="!imageSelected; else showImage;" class="imageContainer">
-      <ion-button size="medium" (click)="takePicture()">Inserisci una tua foto</ion-button>
+      <ion-avatar class="bigger-avatar" (click)="takePicture()">
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+      </ion-avatar>
+      
+     <!--  <ion-button size="medium" (click)="takePicture()">Inserisci una tua foto</ion-button> -->
     </div>
     <ng-template #showImage>
       <div class="imageContainer">
         <ion-button fill="none" (click)="takePicture()">
-          <img [style.border-radius]="'100%'" [style.max-width]="'50%'" [src]="professional.ProfilePicture">
+          <img class="image" [style.border-radius]="'100%'" [src]="professional.profilePicture">
         </ion-button>
       </div>
     </ng-template>
 
     <ion-item>
-      <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.FirstName"
+      <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.firstName"
         required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input label="Cognome" label-placement="floating" type="text" [(ngModel)]="professional.LastName"
+      <ion-input label="Cognome" label-placement="floating" type="text" [(ngModel)]="professional.lastName"
         required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input  label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
-        placeholder="+39 xxx xxx xxxx" label-placement="floating" [(ngModel)]="professional.PhoneNumber"
-        required></ion-input>
+      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="+39 xxx xxx xxxx"
+        label-placement="floating" [(ngModel)]="professional.phoneNumber" required></ion-input>
     </ion-item>
 
-    <ion-item id="open-address-settings" [button]="true"> 
+    <ion-item id="open-address-settings" [button]="true">
       <ion-input label="Indirizzo" label-placement="floating" type="text" [(ngModel)]="addressString"
         required></ion-input>
     </ion-item>
@@ -52,19 +61,19 @@
         </ion-toolbar>
         <ion-list>
           <ion-item>
-            <ion-input label="Via/Viale" label-placement="floating" type="text" [(ngModel)]="professional.Address.Street"
-              required></ion-input>
+            <ion-input label="Via/Viale" label-placement="floating" type="text"
+              [(ngModel)]="professional.address.Street" required></ion-input>
           </ion-item>
           <ion-item>
             <ion-input label="Numero civico" label-placement="floating" type="text"
-              [(ngModel)]="professional.Address.StreetNumber" required></ion-input>
+              [(ngModel)]="professional.address.StreetNumber" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Città" label-placement="floating" type="text" [(ngModel)]="professional.Address.City"
+            <ion-input label="Città" label-placement="floating" type="text" [(ngModel)]="professional.address.City"
               required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="CAP" label-placement="floating" [(ngModel)]="professional.Address.ZipCode"
+            <ion-input label="CAP" label-placement="floating" [(ngModel)]="professional.address.ZipCode"
               required></ion-input>
           </ion-item>
         </ion-list>
@@ -77,7 +86,7 @@
     </ion-item>
  -->
     <ion-item id="open-modal">
-      <ion-input label="Data di nascita" label-placement="floating" type="text" [(ngModel)]="professional.BirthDate"
+      <ion-input label="Data di nascita" label-placement="floating" type="text" [(ngModel)]="professional.birthDate"
         required></ion-input>
     </ion-item>
 
@@ -89,42 +98,137 @@
     </ion-modal>
 
     <ion-item>
-      <ion-textarea label="Descrizione" label-placement="floating"
-      type="text" [rows]="1" [autoGrow]="true" [(ngModel)]="professional.Description" maxlength="200"></ion-textarea>
+      <ion-textarea label="Descrizione" label-placement="floating" type="text" [rows]="1" [autoGrow]="true"
+        [(ngModel)]="professional.description" maxlength="200"></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.Profession"
-        required>
-        <ion-select-option value="Dottore" >Dottore</ion-select-option>
-        <ion-select-option value="Infermiere" >Infermiere</ion-select-option>
-        <ion-select-option value="Fisioterapista" >Fisioterapista</ion-select-option>
-        <ion-select-option value="Badante" >Badante</ion-select-option>
-        <ion-select-option value="Altro" >Altro</ion-select-option>
+      <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.profession" required>
+        <ion-select-option value="Dottore">Dottore</ion-select-option>
+        <ion-select-option value="Infermiere">Infermiere</ion-select-option>
+        <ion-select-option value="Fisioterapista">Fisioterapista</ion-select-option>
+        <ion-select-option value="Badante">Badante</ion-select-option>
+        <ion-select-option value="Altro">Altro</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-input label="Carta d'identità" label-placement="floating" [maskito]="cardMask" [maskitoElement]="maskPredicate"
-       label-placement="floating" [(ngModel)]="professional.IdCardNumber"
-        required></ion-input>
+      <ion-input label="Carta d'identità" label-placement="floating" [maskito]="cardMask"
+        [maskitoElement]="maskPredicate" [(ngModel)]="professional.idCardNumber" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-button type="file" (click)="pickImages()" expand="block">Carica il tuo certificato</ion-button>
-      <br>
-      <img src="{{professional.Certificate}}" >
+      <ion-input label="Raggio d'azione" label-placement="floating" type="number" placeholder="Es. 2 Km" [(ngModel)]="professional.maxDistance"></ion-input>
     </ion-item>
-    
-    
 
+    <ion-item>
+      <ion-input label="Costi del servizio" label-placement="floating" type="number" placeholder="Es. 20 €/h"
+        [(ngModel)]="professional.hourlyRate"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-select multiple="true" label="Modalità di erogazione" labelPlacement="floating" required>
+        <ion-select-option (ionChange)="professional.shortTimeJoob" value="Saltuario">Saltuario</ion-select-option>
+        <ion-select-option (ionChange)="professional.longTimeJob" value="Lungo termine">Lungo
+          Termine</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-    <div class="buttonContainer">
-        <ion-button expand="block" size="large">Completa</ion-button>
+    <div>
+      <ion-item [button]="true" type="file" (click)="pickImages()" expand="block">Carica il tuo certificato (formato
+        .jpg)</ion-item>
+      <img [align]="'center'" src="{{professional.certificate}}">
     </div>
 
 
+    <h2 [style.text-align]="'center'" [style.font-weight]="'bold'">Disponibilità</h2>
+    <p [style.text-align]="'center'" [style.font-weight]="'bold'">Aggiungi nuove disponibilità</p>
+    <ion-list>
+
+      <ion-item>
+        <ion-label>Ora di inizio</ion-label>
+        <ion-datetime-button datetime="startHour"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="startHour" presentation="time" [showDefaultButtons]="true"  (ionChange)="setStartHour($event)"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Ora di fine</ion-label>
+        <ion-datetime-button datetime="endHour">Data di fine</ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="endHour" presentation="time" [showDefaultButtons]="true" (ionChange)="setEndHour($event)"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Monday">Lunedì</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Tuesday">Martedì</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Wednesday">Mercoledì</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Thursday">Giovedì</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Friday">Venerdì</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Saturday">Sabato</ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox [(ngModel)]="newAvailability.Sunday">Domenica</ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-select [multiple]="false" label="Presso" labelPlacement="floating" [(ngModel)]="newAvailability.Place"
+          required>
+          <ion-select-option value="Studio">Studio</ion-select-option>
+          <ion-select-option value="Domicilio">Domicilio</ion-select-option>
+          <ion-select-option value="Studio/Domicilio">Studio/Domicilio</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
+
+    </ion-list>
+
+    <ion-list>
+      <ion-item *ngFor="let availability of professional.availability">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Nuova disponibilità</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <b>Disponibile nei seguenti giorni:</b><br>
+              <ion-text *ngIf="availability.Monday">Lunedì </ion-text>
+              <ion-text *ngIf="availability.Tuesday">Martedì </ion-text>
+              <ion-text *ngIf="availability.Wednesday">Mercoledì </ion-text>
+              <ion-text *ngIf="availability.Thursday">Giovedì </ion-text>
+              <ion-text *ngIf="availability.Friday">Venerdì </ion-text>
+              <ion-text *ngIf="availability.Saturday">Sabato </ion-text>
+              <ion-text *ngIf="availability.Sunday">Domenica </ion-text>
+            <br>
+            <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
+            <b>Presso:</b> {{availability.Place}}
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+
+
   </ion-list>
+
+  <div class="buttonContainer">
+    <ion-button expand="block" size="large">Completa</ion-button>
+  </div>
+
 
 </ion-content>

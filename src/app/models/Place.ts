@@ -1,5 +1,5 @@
 export enum Place {
-    Office = 'Office',
-    Domicile = 'Domicile',
-    Both = 'Both'
+    Office = 'Studio',
+    Domicile = 'Domicilio',
+    Both = 'Studio/Domicilio'
 }
