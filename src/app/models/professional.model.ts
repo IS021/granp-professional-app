@@ -1,6 +1,7 @@
 import { Address } from "./Address";
 import { Availability } from "./Availability";
 import { Profession } from "./Profession";
+import { Gender } from "./Gender"
 
 export class Professional {
   profilePicture: string; //TODO: as picture, in BackEnd
@@ -17,6 +18,7 @@ export class Professional {
   profession: Profession;
   address: Address;
   birthDate: string;
+  gender: Gender;
   idCardNumber: string;
   certificate: string; //TODO: in BackEnd */
 
@@ -39,6 +41,7 @@ export class Professional {
     this.profession = Profession.Other;
     this.address = new Address();
     this.birthDate = '';
+    this.gender = Gender.Other;
     this.idCardNumber = '';
     this.certificate = '';
 

@@ -35,7 +35,7 @@ import {
   IonText,
   IonCol,
   IonCardContent,
-  IonAvatar
+  IonAvatar,
 } from '@ionic/angular/standalone';
 
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
@@ -59,6 +59,7 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-registration',
@@ -108,16 +109,16 @@ export class RegistrationPage implements OnInit {
   addressString: string = '';
 
   newAvailability: Availability = new Availability(
-    '',
-        '',
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        Place.Both
+    '08:00',
+    '09:00',
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    Place.Both
   );
 
   setProfessionalBirthdate(event: any) {
@@ -130,32 +131,32 @@ export class RegistrationPage implements OnInit {
 
   readonly phoneMask: MaskitoOptions = {
     mask: [
-        '+',
-        '3',
-        '9',
-        ' ',
-        /\b[1-9]\b/,
-        /\d/,
-        /\d/,
-        ' ',
-        /\d/,
-        /\d/,
-        /\d/,
-        ' ',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
+      '+',
+      '3',
+      '9',
+      ' ',
+      /\b[1-9]\b/,
+      /\d/,
+      /\d/,
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/,
     ],
-};
+  };
 
-readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
     (el as HTMLIonInputElement).getInputElement();
-  
+
   constructor(
     private cameraService: CameraService,
     private cdr: ChangeDetectorRef,
-    private modalController: ModalController    
+    private modalController: ModalController
   ) {
     addIcons({ trashOutline });
   }
@@ -189,12 +190,12 @@ readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
 
   /* maxDistance masking */
   readonly distanceMask: MaskitoOptions = {
-    mask: ['K', 'm', /^[0-9]*$/]
+    mask: ['k', 'm', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
   /* hourlyRate masking */
   readonly rateMask: MaskitoOptions = {
-    mask: ['€' ,'/','h', /^[0-9]*$/],
+    mask: ['€', '/', 'h', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
   /* Certificate picker */
@@ -209,34 +210,32 @@ readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
 
   /* Defining availabilities info */
   setStartHour(event: any) {
-      this.newAvailability.StartHour = format(
-        parseISO(event.detail.value),
-        'HH:mm'
-      );
-    }
-  
-
-  setEndHour(event: any) {
-      this.newAvailability.EndHour = format(parseISO(event.detail.value), 'HH:mm');
+    this.newAvailability.StartHour = event.detail.value;
   }
 
+  setEndHour(event: any) {
+    this.newAvailability.EndHour = event.detail.value;
+  }
 
   /* Availability management */
   addNewAvailability() {
-    const availability = this.newAvailability;
-    this.professional.availability.push(availability);
-    this.newAvailability = new Availability(
-      '',
-      '',
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      Place.Both
-    );
+    if ((this.newAvailability.Monday || this.newAvailability.Tuesday || this.newAvailability.Wednesday || this.newAvailability.Thursday || this.newAvailability.Friday || this.newAvailability.Saturday || this.newAvailability.Sunday)
+          && (this.newAvailability.StartHour < this.newAvailability.EndHour)) {
+      const availability = this.newAvailability;
+      this.professional.availability.push(availability);
+      this.newAvailability = new Availability(
+        '08:00',
+        '09:00',
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        Place.Both
+      );
+    }
   }
 
   removeAvailability(availability: Availability) {
