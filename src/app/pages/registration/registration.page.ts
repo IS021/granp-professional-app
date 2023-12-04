@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
@@ -36,6 +36,7 @@ import {
   IonCol,
   IonCardContent,
   IonAvatar,
+  AlertController,
 } from '@ionic/angular/standalone';
 
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
@@ -60,6 +61,8 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
 
+import { GeocodingService } from 'granp-lib';
+import { reverse } from 'dns';
 
 @Component({
   selector: 'app-registration',
@@ -103,6 +106,8 @@ import { trashOutline } from 'ionicons/icons';
 })
 export class RegistrationPage implements OnInit {
   professional: Professional = new Professional();
+
+  geocodingService = inject(GeocodingService);
 
   showPicker = false;
   imageSelected = false;
@@ -156,7 +161,8 @@ export class RegistrationPage implements OnInit {
   constructor(
     private cameraService: CameraService,
     private cdr: ChangeDetectorRef,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController
   ) {
     addIcons({ trashOutline });
   }
@@ -170,13 +176,47 @@ export class RegistrationPage implements OnInit {
     });
   }
 
+  /* Address settings */
   submitProfessionalAddress() {
     this.addressString = `${this.professional.address.Street}, ${this.professional.address.StreetNumber}, ${this.professional.address.City}, ${this.professional.address.ZipCode}`;
-    this.professional.address.setFullAddress(this.addressString);
+    this.convertAddressToCoordinates(this.addressString);
+
+    this.professional.address = this.geocodingService
+      .getReverseGeocoding(
+        this.professional.address.Location!.Latitude,
+        this.professional.address.Location!.Longitude
+      )
+      .subscribe((reverseData: any) => {
+        if (reverseData.features && reverseData.features.length > 0) {
+          const addressArray =
+            reverseData.features[0].properties.address.split(', ');
+          this.professional.address.Street = addressArray[0];
+          this.professional.address.StreetNumber = addressArray[1];
+          this.professional.address.City = addressArray[2];
+          this.professional.address.ZipCode = addressArray[3];
+        }
+      });
 
     // Dismiss the modal and pass addressString
     this.modalController.dismiss({
       addressString: this.addressString,
+    });
+  }
+
+  convertAddressToCoordinates(address: string) {
+    this.geocodingService.getAddressLocation(address).subscribe((data: any) => {
+      if (data.features && data.features.length > 0) {
+        const coordinates = data.features[0].geometry.coordinates;
+        this.professional.address.Location!.Latitude = coordinates[1];
+        this.professional.address.Location!.Longitude = coordinates[0];
+        console.log(this.professional.address.Location);
+      } else {
+        this.alertController.create({
+          header: 'Errore',
+          message: 'Indirizzo non valido',
+          buttons: ['OK'],
+        });
+      }
     });
   }
 
@@ -219,8 +259,16 @@ export class RegistrationPage implements OnInit {
 
   /* Availability management */
   addNewAvailability() {
-    if ((this.newAvailability.Monday || this.newAvailability.Tuesday || this.newAvailability.Wednesday || this.newAvailability.Thursday || this.newAvailability.Friday || this.newAvailability.Saturday || this.newAvailability.Sunday)
-          && (this.newAvailability.StartHour < this.newAvailability.EndHour)) {
+    if (
+      (this.newAvailability.Monday ||
+        this.newAvailability.Tuesday ||
+        this.newAvailability.Wednesday ||
+        this.newAvailability.Thursday ||
+        this.newAvailability.Friday ||
+        this.newAvailability.Saturday ||
+        this.newAvailability.Sunday) &&
+      this.newAvailability.StartHour < this.newAvailability.EndHour
+    ) {
       const availability = this.newAvailability;
       this.professional.availability.push(availability);
       this.newAvailability = new Availability(
