@@ -13,15 +13,16 @@ export const environment = {
       httpInterceptor: {
           allowedList: [
               {
-                  uri: 'http://localhost:5255/*',
+                  uri: 'http://bigweldnas.direct.quickconnect.to:35255/*',
               },
           ],
       },
     },
     granp: {
-      apiServerUrl: 'http://localhost:5255',
+      apiServerUrl: 'http://bigweldnas.direct.quickconnect.to:35255',
       logoutRedirectUri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
       role: 'professional',
+      mapboxAccessToken: 'pk.eyJ1IjoiYW50b3BpbzI2IiwiYSI6ImNscHI2YXJrMDA3NGwyaW41NzZubXcwamQifQ.y93LdBmsaZAYGLeveWMNIg',
     },
   };
   
