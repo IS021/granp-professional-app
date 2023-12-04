@@ -1,0 +1,68 @@
+.ion-text-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  ion-modal {
+    --width: fit-content;
+    --min-width: 300px;
+    --height: fit-content;
+    --border-radius: 6px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  }
+  
+  ion-modal::part(backdrop) {
+    background: rgba(209, 213, 219);
+    opacity: 1;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+    width: 100%;
+  
+    padding: 1.5rem;
+  }
+  
+  /* ion-input.ng-valid::part(floating-label) {
+      caret-color: medium;
+      color: var(--ion-color-primary);
+    }
+    
+     */
+  
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .availabilityContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .bigger-avatar {
+    width: 150px; /* Adjust the width as needed */
+    height: 150px; /* Adjust the height as needed */
+  }
+  
+  .image {
+    width: 150px; /* Adjust the width as needed */
+    height: 150px; /* Adjust the height as needed */
+  }
+  
