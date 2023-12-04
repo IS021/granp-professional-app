@@ -22,7 +22,8 @@ import {
 from '@ionic/angular/standalone'
 
 import { addIcons } from 'ionicons';
-import { call, home, personCircleOutline, calendarOutline } from 'ionicons/icons';
+import { call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline } from 'ionicons/icons';
+import { Gender } from 'src/app/models/Gender';
 
 @Component({
   selector: 'app-customer-details',
@@ -57,6 +58,7 @@ export class CustomerDetailsPage implements OnInit {
     elderAddress: 'Via dei Cantieri matti, 69, Palese, 70128',
     elderBirthDate: '25/12/0000',
     elderAge: 2023,
+    elderGender: Gender.Male,
     elderTelephoneNumber: '6666666669',
     elderDescription: 'Soffro di gravi reumatismi dovuti alla mia ossessione per i cantieri, che mi porta a passare lunghe giornate al freddo fuori casa per controllare gli operai',
 
@@ -68,7 +70,7 @@ export class CustomerDetailsPage implements OnInit {
   };
 
   constructor(private platform: Platform) {
-    addIcons({call, home, personCircleOutline, calendarOutline});
+    addIcons({call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline});
   }
 
   ngOnInit() {
@@ -90,6 +92,28 @@ export class CustomerDetailsPage implements OnInit {
     this.platform.ready().then(() => {
       window.location.href = 'tel:' + phoneNumber;
     });
+  }
+
+  checkGender(): string {
+    switch (this.customerLogged.elderGender) {
+      case Gender.Male:
+        return 'Uomo';
+      case Gender.Female:
+        return 'Donna';
+      default:
+        return 'Non definito';
+    }
+  }
+
+  checkGenderIcon(): string {
+    switch (this.customerLogged.elderGender) {
+      case Gender.Male:
+        return 'male-outline';
+      case Gender.Female:
+        return 'female-outline';
+      default:
+        return 'help-outline';
+    }
   }
 
 }

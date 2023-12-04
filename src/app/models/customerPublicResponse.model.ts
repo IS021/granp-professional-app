@@ -1,4 +1,5 @@
 import { Address } from "./Address";
+import { Gender } from "./Gender";
 
 export interface Customer {
     profilePicture: string;
@@ -8,6 +9,7 @@ export interface Customer {
     elderAddress: string;
     elderBirthDate: string;
     elderAge: number;
+    elderGender: Gender;
     elderTelephoneNumber: string;
     elderDescription: string;
 
