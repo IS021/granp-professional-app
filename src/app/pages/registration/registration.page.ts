@@ -45,7 +45,7 @@ import { Professional } from '../../models/professional.model';
 
 import { ChangeDetectionStrategy } from '@angular/core';
 
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, set } from 'date-fns';
 
 import {
   Camera,
@@ -68,7 +68,6 @@ import { trashOutline } from 'ionicons/icons';
   imports: [
     CommonModule,
     FormsModule,
-    MaskitoModule,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -97,6 +96,7 @@ import { trashOutline } from 'ionicons/icons';
     IonCol,
     IonCardContent,
     IonAvatar,
+    MaskitoModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -189,12 +189,12 @@ readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
 
   /* maxDistance masking */
   readonly distanceMask: MaskitoOptions = {
-    mask: [/^[0-9]*$/, 'Km']
+    mask: ['K', 'm', /^[0-9]*$/]
   };
 
   /* hourlyRate masking */
   readonly rateMask: MaskitoOptions = {
-    mask: [ /^[0-9]*$/, '€/h'],
+    mask: ['€' ,'/','h', /^[0-9]*$/],
   };
 
   /* Certificate picker */
