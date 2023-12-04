@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 
-import { Address } from '../../models/Address';
 import { Availability } from '../../models/Availability';
-import { GeoLocation } from '../../models/Location';
-import { Profession } from 'src/app/models/Profession';
 import { Place } from 'src/app/models/Place';
 
 import {
@@ -104,26 +101,7 @@ import { trashOutline } from 'ionicons/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPage implements OnInit {
-  professional: Professional = {
-    firstName: '',
-    lastName: '',
-    /*  Email: '', */
-    phoneNumber: '',
-
-    description: '',
-    profession: Profession.Other,
-    address: new Address('', '', '', '', new GeoLocation(0, 0)),
-    birthDate: '',
-    idCardNumber: '',
-    certificate: '',
-    profilePicture: '',
-
-    hourlyRate: null,
-    maxDistance: null,
-    longTimeJob: false,
-    shortTimeJoob: false,
-    availability: [],
-  };
+  professional: Professional = new Professional();
 
   showPicker = false;
   imageSelected = false;
@@ -150,29 +128,28 @@ export class RegistrationPage implements OnInit {
     this.showPicker = false;
   }
 
-  /* Phone number masking  */
   readonly phoneMask: MaskitoOptions = {
     mask: [
-      '+',
-      '3',
-      '9',
-      ' ',
-      /\b[1-9]\b/,
-      /\d/,
-      /\d/,
-      ' ',
-      /\d/,
-      /\d/,
-      /\d/,
-      ' ',
-      /\d/,
-      /\d/,
-      /\d/,
-      /\d/,
+        '+',
+        '3',
+        '9',
+        ' ',
+        /\b[1-9]\b/,
+        /\d/,
+        /\d/,
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
     ],
-  };
+};
 
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => 
+readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
     (el as HTMLIonInputElement).getInputElement();
   
   constructor(
