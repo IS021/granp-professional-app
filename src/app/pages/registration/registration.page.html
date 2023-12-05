@@ -39,10 +39,9 @@
     </ion-item>
 
     <ion-item>
-        <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
-          placeholder="+39 xxx xxx xxxx" label-placement="floating" [(ngModel)]="professional.phoneNumber"
-          required></ion-input>
-      </ion-item>
+      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="+39 xxx xxx xxxx"
+        label-placement="floating" [(ngModel)]="professional.phoneNumber" required></ion-input>
+    </ion-item>
 
     <ion-item id="open-address-settings" [button]="true">
       <ion-input label="Indirizzo" label-placement="floating" type="text" [(ngModel)]="addressString"
@@ -91,6 +90,14 @@
         required></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="professional.gender" required>
+        <ion-select-option value="Uomo">Uomo</ion-select-option>
+        <ion-select-option value="Donna">Donna</ion-select-option>
+        <ion-select-option value="Altro">Altro</ion-select-option>
+      </ion-select>
+    </ion-item>
+
     <ion-modal trigger="open-modal">
       <ng-template>
         <ion-datetime locale="it-IT" [presentation]="'date'" (ionChange)="setProfessionalBirthdate($event)"
@@ -119,13 +126,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-input label="Raggio d'azione" label-placement="floating" type="number" placeholder="Es. 2 Km"
-        [(ngModel)]="professional.maxDistance"></ion-input>
+      <ion-input label="Raggio d'azione" label-placement="floating" placeholder="Es. 2 Km" [maskito]="distanceMask"
+        [maskitoElement]="maskPredicate" [(ngModel)]="professional.maxDistance"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input label="Costi del servizio" label-placement="floating" type="number" placeholder="Es. 20 €/h"
-        [(ngModel)]="professional.hourlyRate"></ion-input>
+      <ion-input label="Costi del servizio" label-placement="floating" placeholder="Es. 20 €/h" [maskito]="rateMask"
+        [maskitoElement]="maskPredicate" [(ngModel)]="professional.hourlyRate"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -143,16 +150,16 @@
     </div>
 
 
-    <h2 [style.text-align]="'center'" [style.font-weight]="'bold'">Disponibilità</h2>
-    <p [style.text-align]="'center'" [style.font-weight]="'bold'">Aggiungi nuove disponibilità</p>
+    <h1 [style.text-align]="'center'" [style.font-weight]="'bold'" [style.margin-bottom]="'1px'">Disponibilità</h1>
+    <p [style.text-align]="'center'" [style.font-weight]="'normal'" [style.margin-top]="'1px'">Aggiungi nuove disponibilità</p>
     <ion-list>
 
       <ion-item>
         <ion-label>Ora di inizio</ion-label>
-        <ion-datetime-button datetime="startHour" locale="it-IT"></ion-datetime-button>
+        <ion-datetime-button datetime="startHour" locale="it-IT" ></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="startHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+            <ion-datetime id="startHour" locale="it-IT" presentation="time" [showDefaultButtons]="true" [value]="this.newAvailability.StartHour"
               (ionChange)="setStartHour($event)"></ion-datetime>
           </ng-template>
         </ion-modal>
@@ -163,7 +170,7 @@
         <ion-datetime-button datetime="endHour" locale="it-IT">Data di fine</ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="endHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+            <ion-datetime id="endHour" locale="it-IT" presentation="time" [showDefaultButtons]="true" [value]="this.newAvailability.EndHour"
               (ionChange)="setEndHour($event)"></ion-datetime>
           </ng-template>
         </ion-modal>
@@ -200,16 +207,15 @@
         </ion-select>
       </ion-item>
 
-      <ion-button fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
+      <div class="availabilityButton">
+        <ion-button fill="outline" expand="block" size="medium" (click)="addNewAvailability()">Aggiungi</ion-button>
+      </div>
 
     </ion-list>
 
     <ion-list>
       <ion-item *ngFor="let availability of professional.availability">
         <ion-card>
-          <ion-card-header>
-            <ion-card-title>Nuova disponibilità</ion-card-title>
-          </ion-card-header>
           <ion-card-content>
             <b>Disponibile nei seguenti giorni:</b><br>
             <ion-text *ngIf="availability.Monday">Lunedì </ion-text>
@@ -222,7 +228,8 @@
             <br>
             <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
             <b>Presso:</b> {{availability.Place}} <br>
-            <ion-icon name="trash-outline" slot="end" size="large" (click)="removeAvailability(availability)"></ion-icon>
+            <ion-icon name="trash-outline" slot="end" size="large"
+              (click)="removeAvailability(availability)"></ion-icon>
           </ion-card-content>
         </ion-card>
       </ion-item>
@@ -232,7 +239,7 @@
   </ion-list>
 
   <div class="buttonContainer">
-    <ion-button expand="block" size="large">Completa</ion-button>
+    <ion-button size="large" expand="block">Completa</ion-button>
   </div>
 
 

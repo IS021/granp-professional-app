@@ -31,7 +31,7 @@ ion-modal::part(backdrop) {
 
   width: 100%;
 
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
 /* ion-input.ng-valid::part(floating-label) {
@@ -66,3 +66,8 @@ ion-modal::part(backdrop) {
   height: 150px; /* Adjust the height as needed */
 }
 
+.availabilityButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
