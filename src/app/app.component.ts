@@ -27,7 +27,7 @@ export class AppComponent {
 
     // handle this manually as the loader should be displayed immediately once the app
     // is opened via the auth0 redirect uri
-    isAuth0Loading$ = new BehaviorSubject<boolean>(false);
+    isLoading$ = new BehaviorSubject<boolean>(false);
 
     ngOnInit(): void {
 
@@ -47,7 +47,7 @@ export class AppComponent {
             // https://capacitorjs.com/docs/guides/angular
             this.ngZone.run(() => {
                 if (url?.startsWith(environment.auth0.authorizationParams.redirect_uri)) {
-                    this.isAuth0Loading$.next(true);
+                    this.isLoading$.next(true);
                     // If the URL is an authentication callback URL.
                     if (
                         url.includes('state=') &&
@@ -73,7 +73,7 @@ export class AppComponent {
                                 asyncScheduler.schedule(() => {
                                     // redirect to profile when logging in              // TODO
                                     this.router.navigate(['/tabs']);
-                                    this.isAuth0Loading$.next(false);
+                                    this.isLoading$.next(false);
                                 })
                             });
                     } else {
@@ -86,10 +86,10 @@ export class AppComponent {
                         }
                         // redirect to home when logging out
                         this.router.navigate(['/login']);
-                        this.isAuth0Loading$.next(false);
+                        this.isLoading$.next(false);
                     }
                 } else {
-                    this.isAuth0Loading$.next(false);
+                    this.isLoading$.next(false);
                 }
             });
         });
