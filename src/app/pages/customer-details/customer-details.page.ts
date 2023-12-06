@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Customer } from 'src/app/models/customerPublicResponse.model';
 import { Platform } from '@ionic/angular';
 import {
   IonItem,
@@ -23,7 +22,8 @@ from '@ionic/angular/standalone'
 
 import { addIcons } from 'ionicons';
 import { call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline } from 'ionicons/icons';
-import { Gender } from 'src/app/models/Gender';
+
+import { Gender, CustomerProfileRequest } from 'granp-lib';
 
 @Component({
   selector: 'app-customer-details',
@@ -50,7 +50,7 @@ import { Gender } from 'src/app/models/Gender';
 })
 export class CustomerDetailsPage implements OnInit {
 
-  customerLogged: Customer={
+  customerLogged: any = {
     profilePicture: 'https://www.inchiestaonline.it/wp-content/uploads/2021/05/Battiato.jpg',
 
     elderFirstName: 'Franco',
