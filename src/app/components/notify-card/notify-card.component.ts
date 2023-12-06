@@ -1,6 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { 
+  IonButton,
   IonCard, 
   IonCardContent, 
   IonCardHeader, 
@@ -14,11 +17,13 @@ import { Reservation } from 'src/app/models/reservationRequest';
   styleUrls: ['./notify-card.component.scss'],
   standalone: true,
   imports: [
+    CommonModule,
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
+    IonButton
   ]
 })
 export class NotifyCardComponent  implements OnInit {
@@ -33,11 +38,11 @@ export class NotifyCardComponent  implements OnInit {
   };
 
   router = inject(Router);
-  
+
   constructor() { }
   
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    /* throw new Error('Method not implemented.'); */
   }
 
 }
