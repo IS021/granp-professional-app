@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+/* import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
@@ -167,7 +167,7 @@ export class RegistrationPage implements OnInit {
     addIcons({ trashOutline });
   }
 
-  /* Camera service for profile picture */
+  /* Camera service for profile picture *
   takePicture() {
     this.cameraService.takePicture().then((profilePicture) => {
       this.professional.profilePicture = profilePicture;
@@ -176,7 +176,7 @@ export class RegistrationPage implements OnInit {
     });
   }
 
-  /* Address settings */
+  /* Address settings *
   submitProfessionalAddress() {
     this.addressString = `${this.professional.address.Street}, ${this.professional.address.StreetNumber}, ${this.professional.address.City}, ${this.professional.address.ZipCode}`;
     this.convertAddressToCoordinates(this.addressString);
@@ -220,7 +220,7 @@ export class RegistrationPage implements OnInit {
     });
   }
 
-  /* Card Number masking */
+  /* Card Number masking /
   readonly cardMask: MaskitoOptions = {
     mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
     postprocessors: [
@@ -228,17 +228,17 @@ export class RegistrationPage implements OnInit {
     ],
   };
 
-  /* maxDistance masking */
+  /* maxDistance masking *
   readonly distanceMask: MaskitoOptions = {
     mask: ['k', 'm', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
-  /* hourlyRate masking */
+  /* hourlyRate masking *
   readonly rateMask: MaskitoOptions = {
     mask: ['€', '/', 'h', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
-  /* Certificate picker */
+  /* Certificate picker *
   pickImages = async () => {
     const result = await FilePicker.pickImages({
       readData: true,
@@ -248,7 +248,7 @@ export class RegistrationPage implements OnInit {
     this.cdr.detectChanges();
   };
 
-  /* Defining availabilities info */
+  /* Defining availabilities info *
   setStartHour(event: any) {
     this.newAvailability.StartHour = event.detail.value;
   }
@@ -257,7 +257,7 @@ export class RegistrationPage implements OnInit {
     this.newAvailability.EndHour = event.detail.value;
   }
 
-  /* Availability management */
+  /* Availability management *
   addNewAvailability() {
     if (
       (this.newAvailability.Monday ||
@@ -293,4 +293,4 @@ export class RegistrationPage implements OnInit {
   }
 
   ngOnInit() {}
-}
+} */
