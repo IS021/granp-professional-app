@@ -1,10 +1,10 @@
-/* import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-
+/* 
 import { Availability } from '../../models/Availability';
-import { Place } from 'src/app/models/Place';
+import { Place } from 'src/app/models/Place'; */
 
 import {
   IonHeader,
@@ -42,7 +42,6 @@ import {
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 import { MaskitoModule } from '@maskito/angular';
 
-import { Professional } from '../../models/professional.model';
 
 import { ChangeDetectionStrategy } from '@angular/core';
 
@@ -62,7 +61,9 @@ import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
 
 import { GeocodingService } from 'granp-lib';
-import { reverse } from 'dns';
+
+
+import { ImageSelectorComponent, AddressSelectorComponent, BirthdateSelectorComponent, ProfessionalProfileRequest } from 'granp-lib';
 
 @Component({
   selector: 'app-registration',
@@ -101,11 +102,14 @@ import { reverse } from 'dns';
     IonCardContent,
     IonAvatar,
     MaskitoModule,
+    ImageSelectorComponent,
+    AddressSelectorComponent,
+    BirthdateSelectorComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPage implements OnInit {
-  professional: Professional = new Professional();
+  professional: ProfessionalProfileRequest = new ProfessionalProfileRequest();
 
   geocodingService = inject(GeocodingService);
 
@@ -113,7 +117,7 @@ export class RegistrationPage implements OnInit {
   imageSelected = false;
   addressString: string = '';
 
-  newAvailability: Availability = new Availability(
+/*   newAvailability: Availability = new Availability(
     '08:00',
     '09:00',
     false,
@@ -124,7 +128,7 @@ export class RegistrationPage implements OnInit {
     false,
     false,
     Place.Both
-  );
+  ); */
 
   setProfessionalBirthdate(event: any) {
     this.professional.birthDate = format(
@@ -167,60 +171,7 @@ export class RegistrationPage implements OnInit {
     addIcons({ trashOutline });
   }
 
-  /* Camera service for profile picture *
-  takePicture() {
-    this.cameraService.takePicture().then((profilePicture) => {
-      this.professional.profilePicture = profilePicture;
-      this.imageSelected = true;
-      this.cdr.detectChanges();
-    });
-  }
-
-  /* Address settings *
-  submitProfessionalAddress() {
-    this.addressString = `${this.professional.address.Street}, ${this.professional.address.StreetNumber}, ${this.professional.address.City}, ${this.professional.address.ZipCode}`;
-    this.convertAddressToCoordinates(this.addressString);
-
-    this.professional.address = this.geocodingService
-      .getReverseGeocoding(
-        this.professional.address.Location!.Latitude,
-        this.professional.address.Location!.Longitude
-      )
-      .subscribe((reverseData: any) => {
-        if (reverseData.features && reverseData.features.length > 0) {
-          const addressArray =
-            reverseData.features[0].properties.address.split(', ');
-          this.professional.address.Street = addressArray[0];
-          this.professional.address.StreetNumber = addressArray[1];
-          this.professional.address.City = addressArray[2];
-          this.professional.address.ZipCode = addressArray[3];
-        }
-      });
-
-    // Dismiss the modal and pass addressString
-    this.modalController.dismiss({
-      addressString: this.addressString,
-    });
-  }
-
-  convertAddressToCoordinates(address: string) {
-    this.geocodingService.getAddressLocation(address).subscribe((data: any) => {
-      if (data.features && data.features.length > 0) {
-        const coordinates = data.features[0].geometry.coordinates;
-        this.professional.address.Location!.Latitude = coordinates[1];
-        this.professional.address.Location!.Longitude = coordinates[0];
-        console.log(this.professional.address.Location);
-      } else {
-        this.alertController.create({
-          header: 'Errore',
-          message: 'Indirizzo non valido',
-          buttons: ['OK'],
-        });
-      }
-    });
-  }
-
-  /* Card Number masking /
+  /* Card Number masking */
   readonly cardMask: MaskitoOptions = {
     mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
     postprocessors: [
@@ -228,17 +179,17 @@ export class RegistrationPage implements OnInit {
     ],
   };
 
-  /* maxDistance masking *
+  /* maxDistance masking */
   readonly distanceMask: MaskitoOptions = {
     mask: ['k', 'm', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
-  /* hourlyRate masking *
+  /* hourlyRate masking */
   readonly rateMask: MaskitoOptions = {
     mask: ['€', '/', 'h', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
-  /* Certificate picker *
+  /* Certificate picker */
   pickImages = async () => {
     const result = await FilePicker.pickImages({
       readData: true,
@@ -248,17 +199,17 @@ export class RegistrationPage implements OnInit {
     this.cdr.detectChanges();
   };
 
-  /* Defining availabilities info *
-  setStartHour(event: any) {
+  /* Defining availabilities info */
+/*   setStartHour(event: any) {
     this.newAvailability.StartHour = event.detail.value;
   }
 
   setEndHour(event: any) {
     this.newAvailability.EndHour = event.detail.value;
-  }
+  } */
 
-  /* Availability management *
-  addNewAvailability() {
+  /* Availability management */
+/*   addNewAvailability() {
     if (
       (this.newAvailability.Monday ||
         this.newAvailability.Tuesday ||
@@ -291,6 +242,6 @@ export class RegistrationPage implements OnInit {
     this.professional.availability.splice(index, 1);
     console.log(this.professional.availability);
   }
-
+ */
   ngOnInit() {}
-} */
+} 

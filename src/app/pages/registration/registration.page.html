@@ -13,20 +13,7 @@
 
   <ion-list [inset]="true">
 
-    <div *ngIf="!imageSelected; else showImage;" class="imageContainer">
-      <ion-avatar class="bigger-avatar" (click)="takePicture()">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
-
-      <!--  <ion-button size="medium" (click)="takePicture()">Inserisci una tua foto</ion-button> -->
-    </div>
-    <ng-template #showImage>
-      <div class="imageContainer">
-        <ion-button fill="none" (click)="takePicture()">
-          <img class="image" [style.border-radius]="'100%'" [src]="professional.profilePicture">
-        </ion-button>
-      </div>
-    </ng-template>
+    <gp-image-selector (profilePicture)="professional.profilePicture = $event"></gp-image-selector>
 
     <ion-item>
       <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.firstName"
@@ -43,52 +30,16 @@
         label-placement="floating" [(ngModel)]="professional.phoneNumber" required></ion-input>
     </ion-item>
 
-    <ion-item id="open-address-settings" [button]="true">
-      <ion-input label="Indirizzo" label-placement="floating" type="text" [(ngModel)]="addressString"
-        required></ion-input>
-    </ion-item>
-
-    <ion-modal #modal trigger="open-address-settings">
-      <ng-template>
-        <ion-toolbar>
-          <ion-buttons slot="end">
-            <ion-button (click)="modal.dismiss()">Chiudi</ion-button>
-          </ion-buttons>
-          <ion-title [style.align-items]="'center'">Indirizzo</ion-title>
-          <ion-buttons slot="start">
-            <ion-button color="primary" fill="clear" (click)="submitProfessionalAddress()">Salva</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-        <ion-list>
-          <ion-item>
-            <ion-input label="Via/Viale" label-placement="floating" type="text"
-              [(ngModel)]="professional.address.Street" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Numero civico" label-placement="floating" type="text"
-              [(ngModel)]="professional.address.StreetNumber" required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="Città" label-placement="floating" type="text" [(ngModel)]="professional.address.City"
-              required></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label="CAP" label-placement="floating" [(ngModel)]="professional.address.ZipCode"
-              required></ion-input>
-          </ion-item>
-        </ion-list>
-      </ng-template>
-    </ion-modal>
+    <!--Select Address-->
+    <gp-address-selector [(address)]="professional.address"></gp-address-selector>
 
     <!-- <ion-item>
-      <ion-input label="Email" label-placement="floating" [(ngModel)]="professional.Email"
-        required email></ion-input>
-    </ion-item>
- -->
-    <ion-item id="open-modal">
-      <ion-input label="Data di nascita" label-placement="floating" type="text" [(ngModel)]="professional.birthDate"
-        required></ion-input>
-    </ion-item>
+      <ion-input label="Email" label-placement="floating" [(ngModel)]="professional.Email" required email></ion-input>
+    </ion-item> -->
+
+    <!--Select Birthdate-->
+    <gp-birthdate-selector [(birthdate)]="professional.birthDate"></gp-birthdate-selector>
+
 
     <ion-item>
       <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="professional.gender" required>
@@ -98,12 +49,6 @@
       </ion-select>
     </ion-item>
 
-    <ion-modal trigger="open-modal">
-      <ng-template>
-        <ion-datetime locale="it-IT" [presentation]="'date'" (ionChange)="setProfessionalBirthdate($event)"
-          showDefaultButtons="true" (ionCancel)="showPicker=false;"></ion-datetime>
-      </ng-template>
-    </ion-modal>
 
     <ion-item>
       <ion-textarea label="Descrizione" label-placement="floating" type="text" [rows]="1" [autoGrow]="true"
@@ -126,6 +71,14 @@
     </ion-item>
 
     <ion-item>
+      <ion-select multiple="true" label="Modalità di erogazione" labelPlacement="floating" required>
+        <ion-select-option (ionChange)="professional.shortTimeJob" value="Saltuario">Saltuario</ion-select-option>
+        <ion-select-option (ionChange)="professional.longTimeJob" value="Lungo termine">Lungo
+          Termine</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
       <ion-input label="Raggio d'azione" label-placement="floating" placeholder="Es. 2 Km" [maskito]="distanceMask"
         [maskitoElement]="maskPredicate" [(ngModel)]="professional.maxDistance"></ion-input>
     </ion-item>
@@ -135,32 +88,25 @@
         [maskitoElement]="maskPredicate" [(ngModel)]="professional.hourlyRate"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-select multiple="true" label="Modalità di erogazione" labelPlacement="floating" required>
-        <ion-select-option (ionChange)="professional.shortTimeJoob" value="Saltuario">Saltuario</ion-select-option>
-        <ion-select-option (ionChange)="professional.longTimeJob" value="Lungo termine">Lungo
-          Termine</ion-select-option>
-      </ion-select>
-    </ion-item>
 
-    <div>
       <ion-item [button]="true" type="file" (click)="pickImages()" expand="block">Carica il tuo certificato (formato
         .jpg)</ion-item>
       <img [align]="'center'" src="{{professional.certificate}}">
-    </div>
+
 
 
     <h1 [style.text-align]="'center'" [style.font-weight]="'bold'" [style.margin-bottom]="'1px'">Disponibilità</h1>
-    <p [style.text-align]="'center'" [style.font-weight]="'normal'" [style.margin-top]="'1px'">Aggiungi nuove disponibilità</p>
-    <ion-list>
-
+    <p [style.text-align]="'center'" [style.font-weight]="'normal'" [style.margin-top]="'1px'">Aggiungi nuove
+      disponibilità</p>
+  <!-- <ion-list>
+ 
       <ion-item>
         <ion-label>Ora di inizio</ion-label>
-        <ion-datetime-button datetime="startHour" locale="it-IT" ></ion-datetime-button>
+        <ion-datetime-button datetime="startHour" locale="it-IT"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="startHour" locale="it-IT" presentation="time" [showDefaultButtons]="true" [value]="this.newAvailability.StartHour"
-              (ionChange)="setStartHour($event)"></ion-datetime>
+            <ion-datetime id="startHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+              [value]="this.newAvailability.StartHour" (ionChange)="setStartHour($event)"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
@@ -170,8 +116,8 @@
         <ion-datetime-button datetime="endHour" locale="it-IT">Data di fine</ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="endHour" locale="it-IT" presentation="time" [showDefaultButtons]="true" [value]="this.newAvailability.EndHour"
-              (ionChange)="setEndHour($event)"></ion-datetime>
+            <ion-datetime id="endHour" locale="it-IT" presentation="time" [showDefaultButtons]="true"
+              [value]="this.newAvailability.EndHour" (ionChange)="setEndHour($event)"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
@@ -233,10 +179,10 @@
           </ion-card-content>
         </ion-card>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
 
 
-  </ion-list>
+  </ion-list> 
 
   <div class="buttonContainer">
     <ion-button size="large" expand="block">Completa</ion-button>
