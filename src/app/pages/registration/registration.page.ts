@@ -1,10 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Time } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ChangeDetectorRef } from '@angular/core';
-/* 
-import { Availability } from '../../models/Availability';
-import { Place } from 'src/app/models/Place'; */
 
 import {
   IonHeader,
@@ -21,7 +17,6 @@ import {
   IonFabButton,
   IonTextarea,
   IonButtons,
-  ModalController,
   IonSelect,
   IonSelectOption,
   IonLabel,
@@ -36,34 +31,28 @@ import {
   IonCol,
   IonCardContent,
   IonAvatar,
-  AlertController,
 } from '@ionic/angular/standalone';
 
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
 import { MaskitoModule } from '@maskito/angular';
 
-
 import { ChangeDetectionStrategy } from '@angular/core';
-
-import { format, parseISO, set } from 'date-fns';
-
-import {
-  Camera,
-  CameraResultType,
-  CameraSource,
-  Photo,
-} from '@capacitor/camera';
-import { CameraService } from 'src/app/services/camera.service';
-
-import { FilePicker } from '@capawesome/capacitor-file-picker';
 
 import { addIcons } from 'ionicons';
 import { trashOutline } from 'ionicons/icons';
 
-import { GeocodingService } from 'granp-lib';
-
-
-import { ImageSelectorComponent, AddressSelectorComponent, BirthdateSelectorComponent, ProfessionalProfileRequest } from 'granp-lib';
+import {
+  ImageSelectorComponent,
+  AddressSelectorComponent,
+  BirthdateSelectorComponent,
+  CertificateSelectorComponent,
+  AvailabilitySelectorComponent,
+  ProfessionalProfileRequest,
+  TimeTableRequest,
+  TimeSlotRequest,
+  Availability,
+  Place,
+} from 'granp-lib';
 
 @Component({
   selector: 'app-registration',
@@ -104,20 +93,19 @@ import { ImageSelectorComponent, AddressSelectorComponent, BirthdateSelectorComp
     MaskitoModule,
     ImageSelectorComponent,
     AddressSelectorComponent,
-    BirthdateSelectorComponent
+    BirthdateSelectorComponent,
+    CertificateSelectorComponent,
+    AvailabilitySelectorComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationPage implements OnInit {
   professional: ProfessionalProfileRequest = new ProfessionalProfileRequest();
 
-  geocodingService = inject(GeocodingService);
+  // Defining TimeTable for db
+  timeTable: TimeTableRequest = new TimeTableRequest();
 
-  showPicker = false;
-  imageSelected = false;
-  addressString: string = '';
-
-/*   newAvailability: Availability = new Availability(
+  newAvailability: Availability = new Availability(
     '08:00',
     '09:00',
     false,
@@ -128,15 +116,7 @@ export class RegistrationPage implements OnInit {
     false,
     false,
     Place.Both
-  ); */
-
-  setProfessionalBirthdate(event: any) {
-    this.professional.birthDate = format(
-      parseISO(event.detail.value),
-      'dd/MM/yyyy'
-    );
-    this.showPicker = false;
-  }
+  );
 
   readonly phoneMask: MaskitoOptions = {
     mask: [
@@ -162,12 +142,7 @@ export class RegistrationPage implements OnInit {
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
     (el as HTMLIonInputElement).getInputElement();
 
-  constructor(
-    private cameraService: CameraService,
-    private cdr: ChangeDetectorRef,
-    private modalController: ModalController,
-    private alertController: AlertController
-  ) {
+  constructor() {
     addIcons({ trashOutline });
   }
 
@@ -189,59 +164,6 @@ export class RegistrationPage implements OnInit {
     mask: ['€', '/', 'h', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
   };
 
-  /* Certificate picker */
-  pickImages = async () => {
-    const result = await FilePicker.pickImages({
-      readData: true,
-    });
-    this.professional.certificate =
-      'data:image/jpg;base64,' + result.files[0].data;
-    this.cdr.detectChanges();
-  };
 
-  /* Defining availabilities info */
-/*   setStartHour(event: any) {
-    this.newAvailability.StartHour = event.detail.value;
-  }
-
-  setEndHour(event: any) {
-    this.newAvailability.EndHour = event.detail.value;
-  } */
-
-  /* Availability management */
-/*   addNewAvailability() {
-    if (
-      (this.newAvailability.Monday ||
-        this.newAvailability.Tuesday ||
-        this.newAvailability.Wednesday ||
-        this.newAvailability.Thursday ||
-        this.newAvailability.Friday ||
-        this.newAvailability.Saturday ||
-        this.newAvailability.Sunday) &&
-      this.newAvailability.StartHour < this.newAvailability.EndHour
-    ) {
-      const availability = this.newAvailability;
-      this.professional.availability.push(availability);
-      this.newAvailability = new Availability(
-        '08:00',
-        '09:00',
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        Place.Both
-      );
-    }
-  }
-
-  removeAvailability(availability: Availability) {
-    const index = this.professional.availability.indexOf(availability);
-    this.professional.availability.splice(index, 1);
-    console.log(this.professional.availability);
-  }
- */
   ngOnInit() {}
-} 
+}
