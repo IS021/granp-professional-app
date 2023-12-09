@@ -1,106 +1,113 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Registrazione</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Registrazione</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="'true'">
 
-  <h1>
-    Completa la tua registrazione
-  </h1>
+    <h1>
+        Completa la tua registrazione
+    </h1>
 
 
-  <ion-list [inset]="true">
+    <ion-list [inset]="true">
 
-    <gp-image-selector (profilePicture)="professional.profilePicture = $event"></gp-image-selector>
+        <gp-image-selector (profilePicture)="professional.profilePicture = $event"></gp-image-selector>
 
-    <ion-item>
-      <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.firstName"
-        required></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professional.firstName"
+                required></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-input label="Cognome" label-placement="floating" type="text" [(ngModel)]="professional.lastName"
-        required></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-input label="Cognome" label-placement="floating" type="text" [(ngModel)]="professional.lastName"
+                required></ion-input>
+        </ion-item>
 
-    <ion-item>
-      <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="professional.gender" required>
-        <ion-select-option value="Uomo">Uomo</ion-select-option>
-        <ion-select-option value="Donna">Donna</ion-select-option>
-        <ion-select-option value="Altro">Altro</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-item>
+            <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="gender" required>
+                <ion-select-option value="Uomo">Uomo</ion-select-option>
+                <ion-select-option value="Donna">Donna</ion-select-option>
+                <ion-select-option value="Altro">Altro</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-    <ion-item>
-      <ion-input label="Carta d'identità" label-placement="floating" [maskito]="cardMask"
-        [maskitoElement]="maskPredicate" [(ngModel)]="professional.idCardNumber" required></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-input label="Carta d'identità" label-placement="floating" [maskito]="cardMask"
+                [maskitoElement]="maskPredicate" [(ngModel)]="professional.idCardNumber" required></ion-input>
+        </ion-item>
 
-    <!--Select Birthdate-->
-    <gp-birthdate-selector [(birthdate)]="professional.birthDate"></gp-birthdate-selector>
+        <!--Select Birthdate-->
+        <gp-birthdate-selector [(birthdate)]="professional.birthDate"></gp-birthdate-selector>
 
-    <ion-item>
-      <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate" placeholder="+39 xxx xxx xxxx"
-        label-placement="floating" [(ngModel)]="professional.phoneNumber" required></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
+                placeholder="+39 xxx xxx xxxx" label-placement="floating" [(ngModel)]="professional.phoneNumber"
+                required></ion-input>
+        </ion-item>
 
-    <!--Select Address-->
-    <gp-address-selector [(address)]="professional.address"></gp-address-selector>
+        <!--Select Address-->
+        <gp-address-selector [(address)]="professional.address"></gp-address-selector>
 
-    <!-- <ion-item>
+        <!-- <ion-item>
       <ion-input label="Email" label-placement="floating" [(ngModel)]="professional.Email" required email></ion-input>
     </ion-item> -->
 
-    <ion-item>
-      <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.profession" required>
-        <ion-select-option value="Dottore">Dottore</ion-select-option>
-        <ion-select-option value="Infermiere">Infermiere</ion-select-option>
-        <ion-select-option value="Fisioterapista">Fisioterapista</ion-select-option>
-        <ion-select-option value="Badante">Badante</ion-select-option>
-        <ion-select-option value="Altro">Altro</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-item>
+            <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.profession" required>
+                <ion-select-option [value]="0">Dottore</ion-select-option>
+                <ion-select-option [value]="1">Infermiere</ion-select-option>
+                <ion-select-option [value]="2">Fisioterapista</ion-select-option>
+                <ion-select-option [value]="3">Badante</ion-select-option>
+                <ion-select-option [value]="4">Altro</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-    <ion-item>
-      <ion-textarea label="Descrizione" label-placement="floating" type="text" [rows]="1" [autoGrow]="true"
-        [(ngModel)]="professional.description" maxlength="200"></ion-textarea>
-    </ion-item>
+        <ion-item>
+            <ion-textarea label="Descrizione" label-placement="floating" type="text" [rows]="1" [autoGrow]="true"
+                [(ngModel)]="professional.description" maxlength="200"></ion-textarea>
+        </ion-item>
 
-    <ion-item>
-      <ion-input label="Raggio d'azione" label-placement="floating" placeholder="Es. 2 Km" [maskito]="distanceMask"
-        [maskitoElement]="maskPredicate" [(ngModel)]="professional.maxDistance"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-input label="Raggio d'azione" label-placement="floating" [maskito]="numbersMask" [maskitoElement]="maskPredicate" placeholder="Es. 2 Km"
+                [(ngModel)]="professional.maxDistance"></ion-input>
+            <!-- Add KM suffix at the end -->
+            <span class="suffix" slot="end">Km</span>
+        </ion-item>
 
-    <ion-item>
-      <ion-input label="Costi del servizio" label-placement="floating" placeholder="Es. 20 €/h" [maskito]="rateMask"
-        [maskitoElement]="maskPredicate" [(ngModel)]="professional.hourlyRate"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-input label="Costi del servizio" label-placement="floating" [maskito]="numbersMask" [maskitoElement]="maskPredicate" placeholder="Es. 20 €/h"
+                [(ngModel)]="professional.hourlyRate"></ion-input>
+            <!-- Add €/h suffix at the end -->
+            <span class="suffix" slot="end">€/h</span>
+        </ion-item>
 
-    <ion-item>
-      <ion-select multiple="true" label="Modalità di erogazione" labelPlacement="floating" required>
-        <ion-select-option (ionChange)="professional.shortTimeJob" value="Saltuario">Saltuario</ion-select-option>
-        <ion-select-option (ionChange)="professional.longTimeJob" value="Lungo termine">Lungo
-          Termine</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-    <!--Select Certificate-->
-    <gp-certificate-selector [(certificate)]="professional.certificate"></gp-certificate-selector>
+        <ion-item>
+            <ion-select multiple="true" label="Modalità di erogazione" labelPlacement="floating" required>
+                <ion-select-option [(ngModel)]="professional.shortTimeJob"
+                    value="Saltuario">Saltuario</ion-select-option>
+                <ion-select-option [(ngModel)]="professional.longTimeJob" value="Lungo termine">Lungo
+                    Termine</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <!--Select Certificate-->
+        <gp-certificate-selector [(certificate)]="certificate"></gp-certificate-selector>
+    </ion-list>
 
     <h1 [style.text-align]="'center'" [style.font-weight]="'bold'" [style.margin-bottom]="'1px'">Disponibilità</h1>
     <p [style.text-align]="'center'" [style.font-weight]="'normal'" [style.margin-top]="'1px'">Aggiungi nuove
-      disponibilità</p>
+        disponibilità</p>
 
 
- 
-      <gp-availability-selector [(availabilities)]="professional.availabilities"></gp-availability-selector>
-      
-      <div class="buttonContainer">
-        <ion-button size="large" expand="block">Completa</ion-button>
-      </div>
-    
+
+    <gp-availability-selector [(availabilities)]="availabilities"></gp-availability-selector>
+
+    <div class="buttonContainer">
+        <ion-button size="large" expand="block" (click)="completeRegistration()">Completa</ion-button>
+    </div>
+
 
 
 </ion-content>

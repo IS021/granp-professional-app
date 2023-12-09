@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { Capacitor } from '@capacitor/core';
 import { asyncScheduler, BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ChatService } from 'granp-lib';
+import { ChatService, ProfileService } from 'granp-lib';
 
 @Component({
     selector: 'app-root',
@@ -22,6 +22,7 @@ export class AppComponent {
     ngZone = inject(NgZone);
     router = inject(Router);
     chatService = inject(ChatService);
+    profileService = inject(ProfileService);
 
     loggedIn$ = this.auth.isAuthenticated$;
 
@@ -31,13 +32,22 @@ export class AppComponent {
 
     ngOnInit(): void {
 
-        // If not logged in redirect to login page
-        this.loggedIn$.subscribe((loggedIn) => {
+         // If not logged in redirect to login page
+         this.loggedIn$.subscribe((loggedIn) => {
             if (!loggedIn) {
-               /*  this.router.navigate(['/login']); */
+                this.router.navigate(['/login']);
             } else {
-                this.router.navigate(['/tabs']);
-                this.chatService.connect();
+                this.isLoading$.next(true);
+                this.profileService.isComplete().then((isComplete) => {
+                    if (!isComplete) {
+                        this.router.navigate(['/registration']);
+                        this.isLoading$.next(false);
+                    } else {
+                        this.router.navigate(['/tabs']);
+                        this.chatService.connect();
+                        this.isLoading$.next(false);
+                    }
+                });
             }
         });
 
