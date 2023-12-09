@@ -3,7 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/a
 import { Router } from '@angular/router';
 
 import { ProfessionalPublicResponse, ReservationCardComponent, ReservationResponse, ReservationStatus } from 'granp-lib';
-import { CustomerPublicResponse } from 'granp-lib/models/CustomerPublicResponse';
+import { CustomerPublicResponse } from 'granp-lib';
 
 @Component({
     selector: 'app-tab2',
