@@ -43,7 +43,7 @@ import {
   femaleOutline,
   helpOutline,
   locateOutline,
-  documentAttachOutline,
+  cardOutline
 } from 'ionicons/icons';
 
 import {
@@ -172,7 +172,7 @@ export class ModifyProfilePage implements OnInit {
       femaleOutline,
       helpOutline,
       locateOutline,
-      documentAttachOutline
+      cardOutline
     });
   }
 
@@ -230,6 +230,13 @@ export class ModifyProfilePage implements OnInit {
 
   readonly numbersMask: MaskitoOptions = {
     mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+};
+
+readonly cardMask: MaskitoOptions = {
+  mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
+  postprocessors: [
+      ({ value, selection }) => ({ value: value.toUpperCase(), selection }),
+  ],
 };
 
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
