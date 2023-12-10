@@ -26,10 +26,10 @@
         </ion-item>
 
         <ion-item>
-            <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="gender" required>
-                <ion-select-option value="Uomo">Uomo</ion-select-option>
-                <ion-select-option value="Donna">Donna</ion-select-option>
-                <ion-select-option value="Altro">Altro</ion-select-option>
+            <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="professional.gender" required>
+                <ion-select-option [value]="0">Uomo</ion-select-option>
+                <ion-select-option [value]="1">Donna</ion-select-option>
+                <ion-select-option [value]="2">Altro</ion-select-option>
             </ion-select>
         </ion-item>
 
@@ -56,11 +56,11 @@
 
         <ion-item>
             <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.profession" required>
-                <ion-select-option [value]="0">Dottore</ion-select-option>
-                <ion-select-option [value]="1">Infermiere</ion-select-option>
-                <ion-select-option [value]="2">Fisioterapista</ion-select-option>
-                <ion-select-option [value]="3">Badante</ion-select-option>
-                <ion-select-option [value]="4">Altro</ion-select-option>
+                <ion-select-option [value]="'Medico'">Medico</ion-select-option>
+                <ion-select-option [value]="'Infermiere'">Infermiere</ion-select-option>
+                <ion-select-option [value]="'Fisioterapista'">Fisioterapista</ion-select-option>
+                <ion-select-option [value]="'Badante'">Badante</ion-select-option>
+                <ion-select-option [value]="'Altro'">Altro</ion-select-option>
             </ion-select>
         </ion-item>
 
@@ -83,17 +83,14 @@
             <span class="suffix" slot="end">€/h</span>
         </ion-item>
 
-        <ion-item>
-            <ion-select multiple="true" label="Modalità di erogazione" labelPlacement="floating" required>
-                <ion-select-option [(ngModel)]="professional.shortTimeJob"
-                    value="Saltuario">Saltuario</ion-select-option>
-                <ion-select-option [(ngModel)]="professional.longTimeJob" value="Lungo termine">Lungo
-                    Termine</ion-select-option>
-            </ion-select>
+        <ion-item lines="none">
+            <ion-label>Modalità di lavoro</ion-label>
+        </ion-item>
+        <ion-item class="custom-border"> 
+            <ion-checkbox slot="start" labelPlacement="end" [(ngModel)]="professional.shortTimeJob">Saltuario</ion-checkbox>
+            <ion-checkbox slot="end" [style.margin-right]="'20px'" labelPlacement="end" [(ngModel)]="professional.longTimeJob">Lungo termine</ion-checkbox>
         </ion-item>
 
-        <!--Select Certificate-->
-        <gp-certificate-selector [(certificate)]="certificate"></gp-certificate-selector>
     </ion-list>
 
     <h1 [style.text-align]="'center'" [style.font-weight]="'bold'" [style.margin-bottom]="'1px'">Disponibilità</h1>

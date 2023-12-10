@@ -70,3 +70,8 @@ ion-modal::part(backdrop) {
     margin-bottom: -20px;
     color: var(--ion-color-medium);
 }
+
+ion-item.custom-border {
+  border-bottom: 1px solid lightgray;
+  inset-inline-start: 16px;
+}

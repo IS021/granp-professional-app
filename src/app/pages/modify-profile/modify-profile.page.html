@@ -1,13 +1,300 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>modify-profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div *ngIf="!editingProfile; then showDefault else showEditingSettings"></div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<!-- Default profile page -->
+<ng-template #showDefault>
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">modify-profile</ion-title>
+      <ion-title>Profilo</ion-title>
+      <ion-button slot="end" size="small" fill="none" (click)="toggleBoolean()">
+        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+      </ion-button>
     </ion-toolbar>
   </ion-header>
-</ion-content>
+
+  <ion-content>
+    <ion-list [inset]="true">
+
+      <div class="ion-text-wrap">
+        <ion-item class="description-item" [style.margin-bottom]="'1em'">
+          <gp-avatar height="150px" width="150px" [verified]="professionalLogged.isVerified"
+            [profilePicture]="professionalLogged.profilePicture"></gp-avatar>
+        </ion-item>
+      </div>
+
+      <ion-list-header>
+        <ion-label class="title-label">
+          Info Personali
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-icon aria-hidden="true" name="person-circle-outline" slot="start" color="primary"></ion-icon>
+        <ion-label class="scroll-text">
+          {{professionalLogged.firstName}} {{professionalLogged.lastName}}
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon aria-hidden="true" name="calendar-outline" slot="start" color="primary"></ion-icon>
+        <ion-label class="scroll-text">
+          {{professionalLogged.birthDate}}
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="professionalLogged.gender !== undefined">
+        <ion-icon aria-hidden="true" name="{{checkGenderIcon()}}" slot="start" color="primary"></ion-icon>
+        <ion-label class="scroll-text">
+          {{ checkGender() }}
+        </ion-label>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-icon aria-hidden="true" name="mail-open-outline" slot="start" color="primary" ></ion-icon>
+        <ion-label class="scroll-text">
+          {{professionalLogged.email}}
+        </ion-label>
+      </ion-item> -->
+
+      <ion-item [style.margin-bottom]="'1em'">
+        <ion-icon aria-hidden="true" name="call" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          {{ professionalLogged.phoneNumber }}
+        </ion-label>
+      </ion-item>
+
+      <ion-list-header>
+        <ion-label class="title-label">
+          Info Lavorative
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-icon aria-hidden="true" name="medical-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          {{professionalLogged.profession}}
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon aria-hidden="true" name="location-outline" slot="start" color="primary"></ion-icon>
+        <ion-label class="scroll-text">
+          {{professionalLogged.address.street}} {{professionalLogged.address.streetNumber}},
+          {{professionalLogged.address.city}}
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon aria-hidden="true" name="locate-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          {{professionalLogged.maxDistance}} Km
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon aria-hidden="true" name="wallet-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          {{professionalLogged.hourlyRate}} €/h
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="professionalLogged.longTimeJob === true">
+        <ion-icon aria-hidden="true" name="checkmark-outline" slot="start" style="color: green"></ion-icon>
+        <ion-label>
+          Lavoro a lungo termine: SI
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="professionalLogged.longTimeJob === false">
+        <ion-icon aria-hidden="true" name="close-outline" slot="start" style="color: red"></ion-icon>
+        <ion-label>
+          Lavoro a lungo termine: NO
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="professionalLogged.shortTimeJob === true">
+        <ion-icon aria-hidden="true" name="checkmark-outline" slot="start" style="color: green"></ion-icon>
+        <ion-label>
+          Lavoro saltuario: SI
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="professionalLogged.shortTimeJob === false" >
+        <ion-icon aria-hidden="true" name="close-outline" slot="start" style="color: red"></ion-icon>
+        <ion-label>
+          Lavoro a saltuario: NO
+        </ion-label>
+      </ion-item>      
+
+      <ion-list-header *ngIf="professionalLogged.description !== ''">
+        <ion-label class="title-label">
+          Descrizione
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item lines="none" class="ion-text-wrap" [style.margin-top]="'0.5em'" [style.margin-bottom]="'1.5em'"
+        *ngIf="professionalLogged.description !== ''">
+        {{professionalLogged.description}}
+      </ion-item>
+    </ion-list>
+
+    <ion-list [inset]="true" *ngIf="availabilities && availabilities.length > 0">
+      <ion-list-header>
+        <ion-label class="title-label">
+          Disponibilità
+        </ion-label>
+      </ion-list-header>
+
+      <ion-card *ngFor="let availability of availabilities">
+        <ion-card-content>
+            <b>Disponibile nei seguenti giorni: </b><br>
+            <!-- Display days with commas between, last visible one should not have the comma-->
+            <span *ngIf="availability.Monday">Lunedì, </span>
+            <span *ngIf="availability.Tuesday">Martedì, </span>
+            <span *ngIf="availability.Wednesday">Mercoledì, </span>
+            <span *ngIf="availability.Thursday">Giovedì, </span>
+            <span *ngIf="availability.Friday">Venerdì, </span>
+            <span *ngIf="availability.Saturday">Sabato, </span>
+            <span *ngIf="availability.Sunday">Domenica, </span>
+            <br>
+            <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
+            <b>Presso:</b> {{availability.Place}} <br>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </ion-content>
+</ng-template>
+
+<!-- Editable profile page -->
+<ng-template #showEditingSettings>
+
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-button slot="start" fill="none" href="/modify-profile">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" fill="none" (click)="submitChanges()">
+        <ion-icon name="checkmark-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-title>Modifica profilo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content color="light">
+
+    <ion-list [inset]="true" class="image-list-inset">
+      <!-- Modify Picture -->
+      <gp-image-selector [picture]="professionalLogged.profilePicture"
+        (profilePicture)="professionalLogged.profilePicture = $event"></gp-image-selector>
+    </ion-list>
+
+    <ion-list [inset]="true">
+      <ion-list-header>
+        <ion-label class="title-label">
+          Info Personali
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-input label="Nome" label-placement="floating" type="text" [(ngModel)]="professionalLogged.firstName"
+          required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Cognome" label-placement="floating" type="text" [(ngModel)]="professionalLogged.lastName"
+          required></ion-input>
+      </ion-item>
+
+      <!--Select Birthdate-->
+      <gp-birthdate-selector [(birthdate)]="professionalLogged.birthDate"></gp-birthdate-selector>
+
+      <ion-item>
+        <ion-select label="Sesso" labelPlacement="floating" [(ngModel)]="professionalLogged.gender" required>
+          <ion-select-option [value]="0">Uomo</ion-select-option>
+          <ion-select-option [value]="1">Donna</ion-select-option>
+          <ion-select-option [value]="2">Altro</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!--
+     <ion-item>
+      <ion-input label="Email" label-placement="floating" [(ngModel)]="customerLogged?.email" required
+        email></ion-input>
+    </ion-item> -->
+
+      <ion-item>
+        <ion-input label="Cellulare" [maskito]="phoneMask" [maskitoElement]="maskPredicate"
+          placeholder="+39 xxx xxx xxxx" label-placement="floating" [(ngModel)]="professionalLogged.phoneNumber"
+          required></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list [inset]="true">
+      <ion-list-header>
+        <ion-label class="title-label">
+          Info Lavorative
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professionalLogged.profession" required>
+          <ion-select-option [value]="'Medico'">Medico</ion-select-option>
+          <ion-select-option [value]="'Infermiere'">Infermiere</ion-select-option>
+          <ion-select-option [value]="'Fisioterapista'">Fisioterapista</ion-select-option>
+          <ion-select-option [value]="'Badante'">Badante</ion-select-option>
+          <ion-select-option [value]="'Altro'">Altro</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!--Select Address-->
+      <gp-address-selector [(address)]="professionalLogged.address"></gp-address-selector>
+
+      <ion-item>
+        <ion-input label="Raggio d'azione" label-placement="floating" [maskito]="numbersMask"
+          [maskitoElement]="maskPredicate" placeholder="Es. 2 Km"
+          [(ngModel)]="professionalLogged.maxDistance"></ion-input>
+        <!-- Add KM suffix at the end -->
+        <span class="suffix" slot="end">Km</span>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Costi del servizio" label-placement="floating" [maskito]="numbersMask"
+          [maskitoElement]="maskPredicate" placeholder="Es. 20 €/h"
+          [(ngModel)]="professionalLogged.hourlyRate"></ion-input>
+        <!-- Add €/h suffix at the end -->
+        <span class="suffix" slot="end">€/h</span>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Modalità di lavoro</ion-label>
+      </ion-item>
+      <ion-item class="custom-border">
+        <ion-checkbox slot="start" labelPlacement="end"
+          [(ngModel)]="professionalLogged.shortTimeJob">Saltuario</ion-checkbox>
+        <ion-checkbox slot="end" [style.margin-right]="'20px'" labelPlacement="end"
+          [(ngModel)]="professionalLogged.longTimeJob">Lungo termine</ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+    <ion-list [inset]="true">
+      <ion-list-header>
+        <ion-label class="title-label">
+          Descrizione
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item lines="none">
+        <ion-textarea label="Descrizione" label-placement="floating" placeholder="Inserisci necessità particolari"
+          type="text" [rows]="1" [autoGrow]="true" [(ngModel)]="professionalLogged.description"
+          maxlength="200"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-list [inset]="true">
+      <ion-list-header>
+        <ion-label class="title-label">
+          Disponibilità
+        </ion-label>
+      </ion-list-header>
+
+        <gp-availability-selector [(availabilities)]="availabilities"></gp-availability-selector>
+    </ion-list>
+  </ion-content>
+</ng-template>

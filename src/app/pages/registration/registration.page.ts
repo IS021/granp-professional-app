@@ -125,7 +125,6 @@ export class RegistrationPage {
 
     availabilities: Availability[] = [];
     certificate: string = '';
-    gender: string = '';
 
     readonly phoneMask: MaskitoOptions = {
         mask: [
@@ -169,7 +168,7 @@ export class RegistrationPage {
 
     completeRegistration() {
         this.profileService.completeProfile(this.professional);
-        
+
         // Update timeTable
 
     }
