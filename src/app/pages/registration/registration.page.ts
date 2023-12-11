@@ -107,8 +107,7 @@ export class RegistrationPage {
 
     professional: ProfessionalProfileRequest = new ProfessionalProfileRequest();
 
-    // Defining TimeTable for db
-    timeTable: TimeTableRequest = new TimeTableRequest();
+    timeSlots: TimeSlotRequest[] = [];
 
     newAvailability: Availability = new Availability(
         '08:00',
@@ -167,7 +166,7 @@ export class RegistrationPage {
     };
 
     completeRegistration() {
-        this.profileService.completeProfile(this.professional);
+        // this.profileService.completeProfile(this.professional);
 
         // Update timeTable
 

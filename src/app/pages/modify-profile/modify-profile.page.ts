@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { Maskito, MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import {
+  Maskito,
+  MaskitoElementPredicateAsync,
+  MaskitoOptions,
+} from '@maskito/core';
 import { MaskitoModule } from '@maskito/angular';
 
 import {
@@ -24,7 +28,7 @@ import {
   IonDatetime,
   IonDatetimeButton,
   IonInput,
-  IonCheckbox
+  IonCheckbox,
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -43,7 +47,7 @@ import {
   femaleOutline,
   helpOutline,
   locateOutline,
-  cardOutline
+  cardOutline,
 } from 'ionicons/icons';
 
 import {
@@ -59,6 +63,7 @@ import {
   Address,
   Availability,
   Place,
+  TimeSlotResponse,
 } from 'granp-lib';
 @Component({
   selector: 'app-modify-profile',
@@ -93,7 +98,7 @@ import {
     BirthdateSelectorComponent,
     AddressSelectorComponent,
     AvailabilitySelectorComponent,
-    CertificateSelectorComponent
+    CertificateSelectorComponent,
   ],
 })
 export class ModifyProfilePage implements OnInit {
@@ -129,32 +134,7 @@ export class ModifyProfilePage implements OnInit {
   };
 
   editingProfile: boolean = false;
-  availabilities: Availability[] = [
-    {
-      StartHour: '09:00',
-      EndHour: '10:00',
-      Monday: true,
-      Tuesday: false,
-      Wednesday: false,
-      Thursday: false,
-      Friday: false,
-      Saturday: false,
-      Sunday: false,
-      Place: Place.Office,
-    },
-    {
-      StartHour: '09:00',
-      EndHour: '10:00',
-      Monday: true,
-      Tuesday: false,
-      Wednesday: false,
-      Thursday: false,
-      Friday: true,
-      Saturday: false,
-      Sunday: false,
-      Place: Place.Domicile,
-    }
-  ];
+  timeSlots: TimeSlotResponse[] = [];
 
   constructor() {
     addIcons({
@@ -172,7 +152,7 @@ export class ModifyProfilePage implements OnInit {
       femaleOutline,
       helpOutline,
       locateOutline,
-      cardOutline
+      cardOutline,
     });
   }
 
@@ -230,14 +210,14 @@ export class ModifyProfilePage implements OnInit {
 
   readonly numbersMask: MaskitoOptions = {
     mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
-};
+  };
 
-readonly cardMask: MaskitoOptions = {
-  mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
-  postprocessors: [
+  readonly cardMask: MaskitoOptions = {
+    mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
+    postprocessors: [
       ({ value, selection }) => ({ value: value.toUpperCase(), selection }),
-  ],
-};
+    ],
+  };
 
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
     (el as HTMLIonInputElement).getInputElement();

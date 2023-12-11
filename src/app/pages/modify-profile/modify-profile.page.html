@@ -141,30 +141,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-list [inset]="true" *ngIf="availabilities && availabilities.length > 0">
-      <ion-list-header>
-        <ion-label class="title-label">
-          Disponibilità
-        </ion-label>
-      </ion-list-header>
-
-      <ion-card *ngFor="let availability of availabilities">
-        <ion-card-content>
-          <b>Disponibile nei seguenti giorni: </b><br>
-          <!-- Display days with commas between, last visible one should not have the comma-->
-          <span *ngIf="availability.Monday">Lunedì, </span>
-          <span *ngIf="availability.Tuesday">Martedì, </span>
-          <span *ngIf="availability.Wednesday">Mercoledì, </span>
-          <span *ngIf="availability.Thursday">Giovedì, </span>
-          <span *ngIf="availability.Friday">Venerdì, </span>
-          <span *ngIf="availability.Saturday">Sabato, </span>
-          <span *ngIf="availability.Sunday">Domenica, </span>
-          <br>
-          <b>Fascia oraria: </b>{{availability.StartHour}} - {{availability.EndHour}}<br>
-          <b>Presso:</b> {{availability.Place}} <br>
-        </ion-card-content>
-      </ion-card>
-    </ion-list>
+    <gp-availability-selector [editable]="false" [timeSlots]="timeSlots"></gp-availability-selector>
   </ion-content>
 </ng-template>
 
@@ -307,7 +284,7 @@
         </ion-label>
       </ion-list-header>
 
-      <gp-availability-selector [(availabilities)]="availabilities"></gp-availability-selector>
+      <gp-availability-selector [editable]="true" [(timeSlots)]="timeSlots"></gp-availability-selector>
     </ion-list>
   </ion-content>
 </ng-template>

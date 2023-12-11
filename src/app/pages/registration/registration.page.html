@@ -99,7 +99,7 @@
 
 
 
-    <gp-availability-selector [(availabilities)]="availabilities"></gp-availability-selector>
+    <gp-availability-selector (timeSlotsChange)="timeSlots = $event"></gp-availability-selector>
 
     <div class="buttonContainer">
         <ion-button size="large" expand="block" (click)="completeRegistration()">Completa</ion-button>
