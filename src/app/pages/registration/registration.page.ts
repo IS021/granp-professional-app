@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { CommonModule, Time } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { AuthService } from '@auth0/auth0-angular';
+
 import {
     IonHeader,
     IonToolbar,
@@ -55,6 +57,8 @@ import {
     Place,
     ProfileService,
 } from 'granp-lib';
+import { Router } from '@angular/router';
+import { ShellService } from 'src/app/shell.service';
 
 @Component({
     selector: 'app-registration',
@@ -104,25 +108,14 @@ import {
 })
 export class RegistrationPage {
     profileService = inject(ProfileService);
+    auth = inject(AuthService);
+    router = inject(Router);
+    shell = inject(ShellService);
 
     professional: ProfessionalProfileRequest = new ProfessionalProfileRequest();
 
     timeSlots: TimeSlotRequest[] = [];
 
-    newAvailability: Availability = new Availability(
-        '08:00',
-        '09:00',
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        Place.Both
-    );
-
-    availabilities: Availability[] = [];
     certificate: string = '';
 
     readonly phoneMask: MaskitoOptions = {
@@ -166,7 +159,28 @@ export class RegistrationPage {
     };
 
     completeRegistration() {
-        // this.profileService.completeProfile(this.professional);
+
+        // Get eamil from auth service
+        this.auth.user$.subscribe((user) => {
+            if (user && user.email) {
+                this.professional.email = user.email;   
+            }
+
+            console.log('Sending profile: ', this.professional);
+            this.shell.showLoader();
+
+            this.profileService.completeProfile(this.professional).then((res) => {
+                console.log('Profile completed: ', res);
+                this.shell.hideLoader();
+
+                this.router.navigate(['/tabs']);
+            }).catch((err) => {
+                console.log('Error completing profile: ', err);
+                this.shell.hideLoader();
+
+                this.router.navigate(['/registration']);
+            });
+        });
 
         // Update timeTable
 

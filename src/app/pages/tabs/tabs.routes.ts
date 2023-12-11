@@ -17,6 +17,16 @@ export const routes: Routes = [
           import('../tab2/tab2.page').then((m) => m.Tab2Page),
       },
       {
+        path: 'calendar',
+        loadComponent: () =>
+          import('granp-lib').then((m) => m.CalendarPage),
+      },
+      {
+        path: 'requests',
+        loadComponent: () => 
+            import('../tab2/tab2.page').then((m) => m.Tab2Page),
+      },
+      {
         path: 'profile',
         loadComponent: () =>
           import('../modify-profile/modify-profile.page').then((m) => m.ModifyProfilePage),

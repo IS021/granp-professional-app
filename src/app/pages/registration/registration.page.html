@@ -48,7 +48,7 @@
         </ion-item>
 
         <!--Select Address-->
-        <gp-address-selector [(address)]="professional.address"></gp-address-selector>
+        <gp-address-selector (addressChange)="professional.address = $event"></gp-address-selector>
 
         <!-- <ion-item>
       <ion-input label="Email" label-placement="floating" [(ngModel)]="professional.Email" required email></ion-input>
@@ -56,11 +56,11 @@
 
         <ion-item>
             <ion-select label="Professione" labelPlacement="floating" [(ngModel)]="professional.profession" required>
-                <ion-select-option [value]="'Medico'">Medico</ion-select-option>
-                <ion-select-option [value]="'Infermiere'">Infermiere</ion-select-option>
-                <ion-select-option [value]="'Fisioterapista'">Fisioterapista</ion-select-option>
-                <ion-select-option [value]="'Badante'">Badante</ion-select-option>
-                <ion-select-option [value]="'Altro'">Altro</ion-select-option>
+                <ion-select-option [value]="0">Medico</ion-select-option>
+                <ion-select-option [value]="1">Infermiere</ion-select-option>
+                <ion-select-option [value]="2">Fisioterapista</ion-select-option>
+                <ion-select-option [value]="3">Badante</ion-select-option>
+                <ion-select-option [value]="4">Altro</ion-select-option>
             </ion-select>
         </ion-item>
 

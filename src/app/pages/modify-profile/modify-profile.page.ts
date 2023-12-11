@@ -1,79 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import {
-  Maskito,
-  MaskitoElementPredicateAsync,
-  MaskitoOptions,
+    Maskito,
+    MaskitoElementPredicateAsync,
+    MaskitoOptions,
 } from '@maskito/core';
 import { MaskitoModule } from '@maskito/angular';
 
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButton,
-  IonIcon,
-  IonContent,
-  IonList,
-  IonItem,
-  IonListHeader,
-  IonLabel,
-  IonSelectOption,
-  IonSelect,
-  IonTextarea,
-  IonCard,
-  IonCardContent,
-  IonDatetime,
-  IonDatetimeButton,
-  IonInput,
-  IonCheckbox,
-} from '@ionic/angular/standalone';
-
-import { addIcons } from 'ionicons';
-import {
-  pencilOutline,
-  closeOutline,
-  checkmarkOutline,
-  personCircleOutline,
-  calendarOutline,
-  mailOpenOutline,
-  call,
-  medicalOutline,
-  locationOutline,
-  walletOutline,
-  maleOutline,
-  femaleOutline,
-  helpOutline,
-  locateOutline,
-  cardOutline,
-} from 'ionicons/icons';
-
-import {
-  ProfessionalProfileResponse,
-  AvatarComponent,
-  ImageSelectorComponent,
-  BirthdateSelectorComponent,
-  AddressSelectorComponent,
-  AvailabilitySelectorComponent,
-  CertificateSelectorComponent,
-  Gender,
-  Profession,
-  Address,
-  Availability,
-  Place,
-  TimeSlotResponse,
-} from 'granp-lib';
-@Component({
-  selector: 'app-modify-profile',
-  templateUrl: './modify-profile.page.html',
-  styleUrls: ['./modify-profile.page.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MaskitoModule,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -88,139 +24,208 @@ import {
     IonSelect,
     IonTextarea,
     IonCard,
+    IonCardContent,
     IonDatetime,
     IonDatetimeButton,
     IonInput,
     IonCheckbox,
-    IonCardContent,
+} from '@ionic/angular/standalone';
+
+import { addIcons } from 'ionicons';
+import {
+    pencilOutline,
+    closeOutline,
+    checkmarkOutline,
+    personCircleOutline,
+    calendarOutline,
+    mailOpenOutline,
+    call,
+    medicalOutline,
+    locationOutline,
+    walletOutline,
+    maleOutline,
+    femaleOutline,
+    helpOutline,
+    locateOutline,
+    cardOutline,
+} from 'ionicons/icons';
+
+import {
+    ProfessionalProfileResponse,
     AvatarComponent,
     ImageSelectorComponent,
     BirthdateSelectorComponent,
     AddressSelectorComponent,
     AvailabilitySelectorComponent,
     CertificateSelectorComponent,
-  ],
+    Gender,
+    Profession,
+    Address,
+    Availability,
+    Place,
+    TimeSlotResponse,
+    ProfileService,
+} from 'granp-lib';
+import { ShellService } from 'src/app/shell.service';
+@Component({
+    selector: 'app-modify-profile',
+    templateUrl: './modify-profile.page.html',
+    styleUrls: ['./modify-profile.page.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        MaskitoModule,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonButton,
+        IonIcon,
+        IonContent,
+        IonList,
+        IonItem,
+        IonListHeader,
+        IonLabel,
+        IonSelectOption,
+        IonSelect,
+        IonTextarea,
+        IonCard,
+        IonDatetime,
+        IonDatetimeButton,
+        IonInput,
+        IonCheckbox,
+        IonCardContent,
+        AvatarComponent,
+        ImageSelectorComponent,
+        BirthdateSelectorComponent,
+        AddressSelectorComponent,
+        AvailabilitySelectorComponent,
+        CertificateSelectorComponent,
+    ],
 })
-export class ModifyProfilePage implements OnInit {
-  /*  professionalLogged?: ProfessionalProfileResponse; */
+export class ModifyProfilePage {
 
-  professionalLogged: ProfessionalProfileResponse = {
-    firstName: 'John',
-    lastName: 'Doe',
-    gender: Gender.Male,
-    email: 'johndoe@gmail.com',
-    phoneNumber: '+39 123 456 7890',
-    profilePicture:
-      'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+    profileService = inject(ProfileService);
+    cdRef = inject(ChangeDetectorRef);
+    shell = inject(ShellService);
 
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit.',
-    profession: Profession.Doctor,
-    address: Object.assign(new Address(), {
-      street: 'Via Roma',
-      streetNumber: '1',
-      city: 'Roma',
-      zipCode: '00100',
-      location: { Latitude: 0, Longitude: 0 },
-    }),
-    birthDate: '1990-01-01',
-    idCardNumber: 'CA123456AA', //da fareeeee
-    isVerified: true,
+    editingProfile: boolean = false;
+    timeSlots: TimeSlotResponse[] = [];
 
-    hourlyRate: 50,
-    maxDistance: 50,
-    longTimeJob: true,
-    shortTimeJob: false,
-  };
+    professionalLogged?: ProfessionalProfileResponse;
 
-  editingProfile: boolean = false;
-  timeSlots: TimeSlotResponse[] = [];
-
-  constructor() {
-    addIcons({
-      pencilOutline,
-      closeOutline,
-      checkmarkOutline,
-      personCircleOutline,
-      calendarOutline,
-      mailOpenOutline,
-      call,
-      medicalOutline,
-      locationOutline,
-      walletOutline,
-      maleOutline,
-      femaleOutline,
-      helpOutline,
-      locateOutline,
-      cardOutline,
-    });
-  }
-
-  toggleBoolean() {
-    this.editingProfile = !this.editingProfile;
-  }
-
-  submitChanges() {
-    this.editingProfile = false;
-    console.log(this.professionalLogged);
-  }
-
-  checkGender(): string {
-    switch (this.professionalLogged.gender) {
-      case Gender.Male:
-        return 'Uomo';
-      case Gender.Female:
-        return 'Donna';
-      default:
-        return 'Non definito';
+    ionViewWillEnter(): void {
+        this.shell.showLoader();
+        this.profileService.getProfile<ProfessionalProfileResponse>().then((profile) => {
+            this.professionalLogged = profile;
+            this.cdRef.detectChanges();
+            this.shell.hideLoader();
+        });
     }
-  }
 
-  checkGenderIcon(): string {
-    switch (this.professionalLogged.gender) {
-      case Gender.Male:
-        return 'male-outline';
-      case Gender.Female:
-        return 'female-outline';
-      default:
-        return 'help-outline';
+    constructor() {
+        addIcons({
+            pencilOutline,
+            closeOutline,
+            checkmarkOutline,
+            personCircleOutline,
+            calendarOutline,
+            mailOpenOutline,
+            call,
+            medicalOutline,
+            locationOutline,
+            walletOutline,
+            maleOutline,
+            femaleOutline,
+            helpOutline,
+            locateOutline,
+            cardOutline,
+        });
     }
-  }
 
-  readonly phoneMask: MaskitoOptions = {
-    mask: [
-      '+',
-      '3',
-      '9',
-      ' ',
-      /\b[1-9]\b/,
-      /\d/,
-      /\d/,
-      ' ',
-      /\d/,
-      /\d/,
-      /\d/,
-      ' ',
-      /\d/,
-      /\d/,
-      /\d/,
-      /\d/,
-    ],
-  };
+    toggleBoolean() {
+        this.editingProfile = !this.editingProfile;
+    }
 
-  readonly numbersMask: MaskitoOptions = {
-    mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
-  };
+    submitChanges() {
+        this.editingProfile = false;
+        this.profileService.updateProfile(this.professionalLogged);
+    }
 
-  readonly cardMask: MaskitoOptions = {
-    mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
-    postprocessors: [
-      ({ value, selection }) => ({ value: value.toUpperCase(), selection }),
-    ],
-  };
+    checkGender(): string {
+        switch (this.professionalLogged?.gender) {
+            case Gender.Male:
+                return 'Uomo';
+            case Gender.Female:
+                return 'Donna';
+            default:
+                return 'Non definito';
+        }
+    }
 
-  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
-    (el as HTMLIonInputElement).getInputElement();
+    checkGenderIcon(): string {
+        switch (this.professionalLogged?.gender) {
+            case Gender.Male:
+                return 'male-outline';
+            case Gender.Female:
+                return 'female-outline';
+            default:
+                return 'help-outline';
+        }
+    }
 
-  ngOnInit() {}
+    readonly phoneMask: MaskitoOptions = {
+        mask: [
+            '+',
+            '3',
+            '9',
+            ' ',
+            /\b[1-9]\b/,
+            /\d/,
+            /\d/,
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+        ],
+    };
+
+    readonly numbersMask: MaskitoOptions = {
+        mask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+    };
+
+    readonly cardMask: MaskitoOptions = {
+        mask: ['C', 'A', /\d/, /\d/, /\d/, /\d/, /\d/, /[a-zA-Z]/, /[a-zA-Z]/],
+        postprocessors: [
+            ({ value, selection }) => ({ value: value.toUpperCase(), selection }),
+        ],
+    };
+
+    readonly maskPredicate: MaskitoElementPredicateAsync = async (el) =>
+        (el as HTMLIonInputElement).getInputElement();
+
+
+    getProfession(profession?: Profession) {
+        switch(profession) {
+            case Profession.Doctor:
+                return "Dottore";
+            case Profession.Nurse:
+                return "Infermiere";
+            case Profession.Physiotherapist:
+                return "Fisioterapista";
+            case Profession.Caregiver:
+                return "Badante";
+            case Profession.Other:
+                return "Altro";
+            default:
+                return "Nessuna professione";
+        }
+    }
+
+    
 }
