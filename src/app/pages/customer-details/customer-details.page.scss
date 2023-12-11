@@ -19,7 +19,7 @@
     }
   
     .scroll-text {
-      text-overflow: ellipsis; /* Display an ellipsis (...) when text overflows */
+      //text-overflow: ellipsis; /* Display an ellipsis (...) when text overflows */
       overflow-x: scroll; /* Enable horizontal scrolling */
       white-space: nowrap; /* Prevent text from wrapping */
       scrollbar-width: thin; /* Specify a thin scrollbar on supporting browsers (Firefox) */
