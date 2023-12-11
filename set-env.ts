@@ -33,7 +33,8 @@ const prodEnvConfigFile = `export const environment = {
       apiServerUrl: '${process.env['API_SERVER_URL']}',
       logoutRedirectUri: '${process.env['AUTH0_CALLBACK_URL']}',
       role: '${process.env['ROLE']}',
-      mapboxAccessToken: '${process.env['MAPBOX_ACCESS_TOKEN']}'
+      mapboxAccessToken: '${process.env['MAPBOX_ACCESS_TOKEN']}',
+        profileRedirectPath: '${process.env['PROFILE_REDIRECT_PATH']}',
     },
   };
   `;
@@ -62,7 +63,8 @@ const prodEnvConfigFile = `export const environment = {
       apiServerUrl: '${process.env['API_SERVER_URL']}',
       logoutRedirectUri: '${process.env['AUTH0_DEV_CALLBACK_URL']}',
       role: '${process.env['ROLE']}',
-      mapboxAccessToken: '${process.env['MAPBOX_ACCESS_TOKEN']}'
+      mapboxAccessToken: '${process.env['MAPBOX_ACCESS_TOKEN']}',
+      profileRedirectPath: '${process.env['PROFILE_REDIRECT_PATH']}',
     },
   };
   `;

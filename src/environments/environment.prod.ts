@@ -22,7 +22,8 @@ export const environment = {
       apiServerUrl: 'http://bigweldnas.direct.quickconnect.to:35255',
       logoutRedirectUri: 'granp.app.professional://antopio.eu.auth0.com/capacitor/granp.app.professional/callback',
       role: 'professional',
-      mapboxAccessToken: 'pk.eyJ1IjoiYW50b3BpbzI2IiwiYSI6ImNscHI2YXJrMDA3NGwyaW41NzZubXcwamQifQ.y93LdBmsaZAYGLeveWMNIg'
+      mapboxAccessToken: 'pk.eyJ1IjoiYW50b3BpbzI2IiwiYSI6ImNscHI2YXJrMDA3NGwyaW41NzZubXcwamQifQ.y93LdBmsaZAYGLeveWMNIg',
+        profileRedirectPath: '/customer-details',
     },
   };
   
