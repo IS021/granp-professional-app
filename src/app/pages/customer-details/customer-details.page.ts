@@ -1,119 +1,125 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Platform } from '@ionic/angular';
 import {
-  IonItem,
-  IonLabel,
-  IonList,
-  IonAvatar,
-  IonContent,
-  IonText,
-  IonRow, 
-  IonCol,
-  IonIcon,
-  IonHeader,
-  IonToolbar,
-  IonBackButton,
-  IonButtons,
-  IonTitle
-  } 
-from '@ionic/angular/standalone'
-
-import { addIcons } from 'ionicons';
-import { call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline } from 'ionicons/icons';
-
-import { Gender, CustomerProfileRequest } from 'granp-lib';
-
-@Component({
-  selector: 'app-customer-details',
-  templateUrl: './customer-details.page.html',
-  styleUrls: ['./customer-details.page.scss'],
-  standalone: true,
-  imports: [CommonModule, 
-    FormsModule, 
-    IonItem, 
-    IonLabel, 
-    IonList, 
-    IonAvatar, 
-    IonContent, 
-    IonText, 
-    IonRow, 
-    IonCol, 
+    IonItem,
+    IonLabel,
+    IonList,
+    IonAvatar,
+    IonContent,
+    IonText,
+    IonRow,
+    IonCol,
     IonIcon,
     IonHeader,
     IonToolbar,
     IonBackButton,
     IonButtons,
     IonTitle
-  ]
+}
+    from '@ionic/angular/standalone'
+
+import { addIcons } from 'ionicons';
+import { call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline } from 'ionicons/icons';
+
+import { Gender, CustomerProfileRequest, SearchService, CustomerPublicResponse } from 'granp-lib';
+import { ActivatedRoute } from '@angular/router';
+import { ShellService } from 'src/app/shell.service';
+
+@Component({
+    selector: 'app-customer-details',
+    templateUrl: './customer-details.page.html',
+    styleUrls: ['./customer-details.page.scss'],
+    standalone: true,
+    imports: [CommonModule,
+        FormsModule,
+        IonItem,
+        IonLabel,
+        IonList,
+        IonAvatar,
+        IonContent,
+        IonText,
+        IonRow,
+        IonCol,
+        IonIcon,
+        IonHeader,
+        IonToolbar,
+        IonBackButton,
+        IonButtons,
+        IonTitle
+    ]
 })
 export class CustomerDetailsPage implements OnInit {
 
-  customerLogged: any = {
-    profilePicture: 'https://www.inchiestaonline.it/wp-content/uploads/2021/05/Battiato.jpg',
+    activatedRoute = inject(ActivatedRoute);
+    searchService = inject(SearchService);
+    shell = inject(ShellService);
 
-    elderFirstName: 'Franco',
-    elderLastName: 'Battiato',
-    elderAddress: 'Via dei Cantieri matti, 69, Palese, 70128',
-    elderBirthDate: '25/12/0000',
-    elderAge: 2023,
-    elderGender: Gender.Male,
-    elderTelephoneNumber: '6666666669',
-    elderDescription: 'Soffro di gravi reumatismi dovuti alla mia ossessione per i cantieri, che mi porta a passare lunghe giornate al freddo fuori casa per controllare gli operai',
+    customer?: CustomerPublicResponse;
 
-    firstName: 'Pinuccio',
-    lastName: 'Battiato',
-    phoneNumber: '1234567890',
+    constructor(private platform: Platform) {
+        addIcons({ call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline });
 
-    isElder: false,
-  };
-
-  constructor(private platform: Platform) {
-    addIcons({call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline});
-  }
-
-  ngOnInit() {
-  }
-
-  callNumber() {
-    if (this.customerLogged.phoneNumber) {
-      const phoneNumber = '+39' + this.customerLogged.phoneNumber;
-      this.platform.ready().then(() => {
-        window.location.href = 'tel:' + phoneNumber;
-      });
-    } else {
-      console.error('Il numero di telefono non è definito.');
+        this.activatedRoute.queryParams.subscribe(params => {
+            // this.professional = JSON.parse(params["professional"]) as ProfessionalPublicResponse;
+            const customerId = params["id"];
+            if (customerId) {
+                this.searchService.customerInfo(customerId).then((customer) => {
+                    this.customer = customer;
+                    this.shell.hideLoader();
+                });
+            }
+        });
     }
-  }
 
-  callElderNumber() {
-    const phoneNumber = '+39' + this.customerLogged.elderTelephoneNumber;
-    this.platform.ready().then(() => {
-      window.location.href = 'tel:' + phoneNumber;
-    });
-  }
-
-  checkGender(): string {
-    switch (this.customerLogged.elderGender) {
-      case Gender.Male:
-        return 'Uomo';
-      case Gender.Female:
-        return 'Donna';
-      default:
-        return 'Non definito';
+    ionViewWillEnter() {
+        if(this.customer === undefined) {
+            this.shell.showLoader();
+        }
     }
-  }
 
-  checkGenderIcon(): string {
-    switch (this.customerLogged.elderGender) {
-      case Gender.Male:
-        return 'male-outline';
-      case Gender.Female:
-        return 'female-outline';
-      default:
-        return 'help-outline';
+    ngOnInit() {
     }
-  }
+
+    callNumber() {
+        if (this.customer?.phoneNumber) {
+            const phoneNumber = '+39' + this.customer.phoneNumber;
+            this.platform.ready().then(() => {
+                window.location.href = 'tel:' + phoneNumber;
+            });
+        } else {
+            console.error('Il numero di telefono non è definito.');
+        }
+    }
+
+    callElderNumber() {
+        const phoneNumber = '+39' + this.customer?.elderPhoneNumber;
+        this.platform.ready().then(() => {
+            window.location.href = 'tel:' + phoneNumber;
+        });
+    }
+
+    checkGender(): string {
+        switch (this.customer?.gender) {
+            case Gender.Male:
+                return 'Uomo';
+            case Gender.Female:
+                return 'Donna';
+            default:
+                return 'Non definito';
+        }
+    }
+
+    checkGenderIcon(): string {
+        switch (this.customer?.gender) {
+            case Gender.Male:
+                return 'male-outline';
+            case Gender.Female:
+                return 'female-outline';
+            default:
+                return 'help-outline';
+        }
+    }
 
 }
