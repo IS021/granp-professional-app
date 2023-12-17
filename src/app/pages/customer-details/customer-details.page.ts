@@ -23,7 +23,7 @@ import {
 import { addIcons } from 'ionicons';
 import { call, home, personCircleOutline, calendarOutline, maleOutline, femaleOutline, helpOutline } from 'ionicons/icons';
 
-import { Gender, CustomerProfileRequest, SearchService, CustomerPublicResponse } from 'granp-lib';
+import { Gender, SearchService, CustomerPublicResponse } from 'granp-lib';
 import { ActivatedRoute } from '@angular/router';
 import { ShellService } from 'src/app/shell.service';
 

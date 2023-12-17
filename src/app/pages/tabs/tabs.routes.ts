@@ -12,19 +12,9 @@ export const routes: Routes = [
           import('granp-lib').then((m) => m.ChatListPage),
       },
       {
-        path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
-      },
-      {
         path: 'calendar',
         loadComponent: () =>
           import('granp-lib').then((m) => m.CalendarPage),
-      },
-      {
-        path: 'requests',
-        loadComponent: () => 
-            import('../tab2/tab2.page').then((m) => m.Tab2Page),
       },
       {
         path: 'profile',
@@ -32,8 +22,12 @@ export const routes: Routes = [
           import('../modify-profile/modify-profile.page').then((m) => m.ModifyProfilePage),
       },
       {
+        path: 'reservation-inbox',
+        loadComponent: () => import('../reservation-inbox/reservation-inbox.page').then( m => m.ReservationInboxPage)
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab2',
+        redirectTo: '/tabs/calendar',
         pathMatch: 'full',
       },
     ],

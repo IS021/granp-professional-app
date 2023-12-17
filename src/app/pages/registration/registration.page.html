@@ -101,6 +101,15 @@
 
     <gp-availability-selector (timeSlotsChange)="timeSlots = $event"></gp-availability-selector>
 
+    <!--Weeks in Advance-->
+    <ion-item>
+        <ion-label>Settimane in anticipo</ion-label>
+        <ion-range min="1" max="8" step="1" snaps="true" [(ngModel)]="weeksInAdvance">
+            <ion-label slot="start">1</ion-label>
+            <ion-label slot="end">4</ion-label>
+        </ion-range>
+    </ion-item>
+
     <div class="buttonContainer">
         <ion-button size="large" expand="block" (click)="completeRegistration()">Completa</ion-button>
     </div>

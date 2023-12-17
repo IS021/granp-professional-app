@@ -56,6 +56,7 @@ import {
     Availability,
     Place,
     ProfileService,
+    TimetableService,
 } from 'granp-lib';
 import { Router } from '@angular/router';
 import { ShellService } from 'src/app/shell.service';
@@ -111,10 +112,12 @@ export class RegistrationPage {
     auth = inject(AuthService);
     router = inject(Router);
     shell = inject(ShellService);
+    timetableService = inject(TimetableService)
 
     professional: ProfessionalProfileRequest = new ProfessionalProfileRequest();
 
     timeSlots: TimeSlotRequest[] = [];
+    weeksInAdvance: number = 3;
 
     certificate: string = '';
 
@@ -183,6 +186,10 @@ export class RegistrationPage {
         });
 
         // Update timeTable
-
+        this.timetableService.update(
+            new TimeTableRequest(this.weeksInAdvance, this.timeSlots)
+        ).then((res) => {
+            console.log('TimeTable updated: ', res);
+        });
     }
 }
