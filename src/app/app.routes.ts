@@ -20,10 +20,5 @@ export const routes: Routes = [
     {
         path: 'modify-profile',
         loadComponent: () => import('./pages/modify-profile/modify-profile.page').then(m => m.ModifyProfilePage)
-    },
-  {
-    path: 'reservation-inbox',
-    loadComponent: () => import('./pages/reservation-inbox/reservation-inbox.page').then( m => m.ReservationInboxPage)
-  }
-
+    }
 ];
