@@ -191,7 +191,10 @@ export class RegistrationPage {
 
         // Update timeTable
         this.timetableService.update(
-            new TimeTableRequest(this.weeksInAdvance, this.timeSlots)
+            {
+                weeksInAdvance: this.weeksInAdvance,
+                timeSlots: this.timeSlots
+            } as TimeTableRequest
         ).then((res) => {
             console.log('TimeTable updated: ', res);
         });

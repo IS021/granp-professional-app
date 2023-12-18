@@ -20,8 +20,7 @@ export class ReservationInboxPage implements OnInit {
 
     constructor() { }
 
-    // ionViewWillEnter() {
-    ngOnInit() {
+    loadReservations() {
         this.loading.create({
             message: 'Loading reservations...'
         }).then((loading) => {
@@ -33,6 +32,11 @@ export class ReservationInboxPage implements OnInit {
                 });
             });
         });
+    }
+
+    // ionViewWillEnter() {
+    ngOnInit() {
+        this.loadReservations();
     }
 
 }

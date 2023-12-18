@@ -13,8 +13,8 @@
 
     <div class="reservation-container">
         <ion-note *ngIf="reservations.length === 0">Nessuna prenotazione</ion-note>
-        <gp-reservation-card *ngFor="let reservation of reservations" [forProfessional]="true" [reservation]="reservation"
-            [showStatus]="true" [showButtons]="true"></gp-reservation-card>
+        <gp-reservation-card *ngFor="let reservation of reservations" [reservation]="reservation"
+            [showStatus]="true" [showButtons]="true" (onAction)="loadReservations()"></gp-reservation-card>
     </div>
 
 </ion-content>

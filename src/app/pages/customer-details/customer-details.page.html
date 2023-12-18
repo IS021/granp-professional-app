@@ -42,7 +42,7 @@
     <ion-item clickable (click)="callElderNumber()">
       <ion-icon aria-hidden="true" name="call" slot="start" color="primary"></ion-icon>
       <ion-label>
-        {{ '+39 ' + customer?.elderPhoneNumber?.slice(0, 3) + ' ' + customer?.elderPhoneNumber?.slice(3, 6) + ' ' + customer?.elderPhoneNumber?.slice(6, 10) }}
+        {{ customer?.phoneNumber }}
       </ion-label>
     </ion-item>
     
