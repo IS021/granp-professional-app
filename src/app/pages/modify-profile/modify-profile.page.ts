@@ -68,6 +68,7 @@ import {
     ProfileService,
     TimetableService,
     TimeTableRequest,
+    LogoutButtonComponent,
 } from 'granp-lib';
 import { ShellService } from 'src/app/shell.service';
 @Component({
@@ -104,7 +105,8 @@ import { ShellService } from 'src/app/shell.service';
         AddressSelectorComponent,
         AvailabilitySelectorComponent,
         CertificateSelectorComponent,
-        IonRange
+        IonRange,
+        LogoutButtonComponent
     ],
 })
 export class ModifyProfilePage {
