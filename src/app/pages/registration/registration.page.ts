@@ -34,6 +34,8 @@ import {
     IonCardContent,
     IonAvatar,
     IonNote,
+    IonListHeader,
+    IonRange,
 } from '@ionic/angular/standalone';
 
 import { MaskitoOptions, MaskitoElementPredicateAsync } from '@maskito/core';
@@ -104,6 +106,8 @@ import { ShellService } from 'src/app/shell.service';
         BirthdateSelectorComponent,
         CertificateSelectorComponent,
         AvailabilitySelectorComponent,
+        IonListHeader,
+        IonRange
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

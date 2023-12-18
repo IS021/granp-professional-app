@@ -29,6 +29,7 @@ import {
     IonDatetimeButton,
     IonInput,
     IonCheckbox,
+    IonRange,
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -65,6 +66,8 @@ import {
     Place,
     TimeSlotResponse,
     ProfileService,
+    TimetableService,
+    TimeTableRequest,
 } from 'granp-lib';
 import { ShellService } from 'src/app/shell.service';
 @Component({
@@ -101,11 +104,13 @@ import { ShellService } from 'src/app/shell.service';
         AddressSelectorComponent,
         AvailabilitySelectorComponent,
         CertificateSelectorComponent,
+        IonRange
     ],
 })
 export class ModifyProfilePage {
 
     profileService = inject(ProfileService);
+    timetableService = inject(TimetableService);
     cdRef = inject(ChangeDetectorRef);
     shell = inject(ShellService);
 
@@ -118,6 +123,7 @@ export class ModifyProfilePage {
         this.shell.showLoader();
         this.profileService.getProfile<ProfessionalProfileResponse>().then((profile) => {
             this.professionalLogged = profile;
+            console.log('professionalLogged', this.professionalLogged);
             this.cdRef.detectChanges();
             this.shell.hideLoader();
         });
@@ -150,6 +156,11 @@ export class ModifyProfilePage {
     submitChanges() {
         this.editingProfile = false;
         this.profileService.updateProfile(this.professionalLogged);
+
+        if (this.professionalLogged && this.professionalLogged.timeTable) {
+            this.timetableService.update(this.professionalLogged.timeTable);
+            console.log('timeTable', this.professionalLogged.timeTable);
+        }
     }
 
     checkGender(): string {
@@ -211,7 +222,7 @@ export class ModifyProfilePage {
 
 
     getProfession(profession?: Profession) {
-        switch(profession) {
+        switch (profession) {
             case Profession.Doctor:
                 return "Dottore";
             case Profession.Nurse:
@@ -227,5 +238,5 @@ export class ModifyProfilePage {
         }
     }
 
-    
+
 }

@@ -1,20 +1,20 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-title>reservation-inbox</ion-title>
+        <ion-title>Richieste</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">reservation-inbox</ion-title>
+            <ion-title size="large">Richieste</ion-title>
         </ion-toolbar>
     </ion-header>
 
     <div class="reservation-container">
         <ion-note *ngIf="reservations.length === 0">Nessuna prenotazione</ion-note>
         <gp-reservation-card *ngFor="let reservation of reservations" [forProfessional]="true" [reservation]="reservation"
-            [showStatus]="true" [showStatus]="true"></gp-reservation-card>
+            [showStatus]="true" [showButtons]="true"></gp-reservation-card>
     </div>
 
 </ion-content>
