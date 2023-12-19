@@ -11,7 +11,7 @@ import { IonContent, IonHeader, IonNote, IonTitle, IonToolbar, LoadingController
     standalone: true,
     imports: [CommonModule, FormsModule, ReservationCardComponent, IonTitle, IonContent, IonToolbar, IonHeader, IonNote]
 })
-export class ReservationInboxPage implements OnInit {
+export class ReservationInboxPage {
 
     reservationService = inject(ReservationService);
     loading = inject(LoadingController);
@@ -34,8 +34,8 @@ export class ReservationInboxPage implements OnInit {
         });
     }
 
-    // ionViewWillEnter() {
-    ngOnInit() {
+    ionViewWillEnter() {
+    // ngOnInit() {
         this.loadReservations();
     }
 
