@@ -22,7 +22,7 @@ export class ReservationInboxPage {
 
     loadReservations() {
         this.loading.create({
-            message: 'Loading reservations...'
+            message: 'Carico prenotazioni...'
         }).then((loading) => {
             loading.present();
             this.reservationService.getAll().then((reservations) => {
