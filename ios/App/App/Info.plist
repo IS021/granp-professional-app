@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>GranP Professional</string>
+	<string>GranP</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -58,10 +58,17 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>(Privacy - Camera Usage Description)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>(Privacy - Photo Library Additions Usage Description)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>(Privacy - Photo Library Usage Description)</string>
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>

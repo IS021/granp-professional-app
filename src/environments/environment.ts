@@ -3,7 +3,7 @@ export const environment = {
     auth0: {
       domain: 'antopio.eu.auth0.com',
       clientId: 'YSutfiDDP0oo1oQp33FkhOxtHGCnFZyL',
-      cacheLocation: 'localstorage',
+      //cacheLocation: 'localstorage',
       authorizationParams: {
           redirect_uri: 'http://localhost:4200',
           audience: 'https://granp.api.com',
